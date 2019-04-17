@@ -229,7 +229,7 @@ return [
     'admin' => [
         'name'     => env('GLOBAL_ADMIN_FIRSTNAME', 'Администратор'),
         'email'    => env('GLOBAL_ADMIN_EMAIL', 'admin@diploma.bsuir'),
-        'password' => env('GLOBAL_ADMIN_EMAIL', 'admin@diploma.bsuir'),
+        'password' => env('GLOBAL_ADMIN_PASSWORD', 'secret'),
     ],
 
     'roles' => [
