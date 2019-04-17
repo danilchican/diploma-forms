@@ -1,6 +1,6 @@
 <div class="navbar nav_title" style="border: 0;">
     <a href="{{ route('dashboard.home') }}" class="site_title">
-        <i class="fa fa-sellsy"></i> <span>TopDekor</span>
+        <i class="fa fa-sellsy"></i> <span>Dashboard</span>
     </a>
 </div>
 

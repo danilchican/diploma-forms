@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ['subtitle' => 'Главная'])
+@extends('layouts.dashboard', ['subtitle' => 'Панель администратора'])
 
 @section('content')
     <div class="row">
