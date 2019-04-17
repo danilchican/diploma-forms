@@ -12,7 +12,6 @@
         <ul class="nav side-menu">
             <li><a href="{{ route('dashboard.home') }}"><i class="fa fa-home"></i> Главная</a></li>
             {{--TODO add links--}}
-            <li><a href="#"><i class="fa fa-cogs"></i> Настройки</a></li>
         </ul>
     </div>
 </div>

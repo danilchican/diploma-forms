@@ -76,7 +76,7 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">Anna Parusova</div>
+                <div class="title m-b-md">Laravel</div>
             </div>
         </div>
     </body>
