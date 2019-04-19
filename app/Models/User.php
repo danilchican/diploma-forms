@@ -9,16 +9,26 @@ use UnexpectedValueException;
 /**
  * App\Models\User
  *
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string|null $email_verified_at
- * @property string $password
- * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read \App\Models\Role $role
+ * @property int
+ *               $id
+ * @property string
+ *               $name
+ * @property string
+ *               $email
+ * @property string|null
+ *               $email_verified_at
+ * @property string
+ *               $password
+ * @property string|null
+ *               $remember_token
+ * @property \Illuminate\Support\Carbon|null
+ *               $created_at
+ * @property \Illuminate\Support\Carbon|null
+ *               $updated_at
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[]
+ *                $notifications
+ * @property-read \App\Models\Role
+ *                    $role
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
@@ -31,6 +41,9 @@ use UnexpectedValueException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null
+ *               $role_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRoleId($value)
  */
 class User extends Authenticatable
 {
@@ -41,18 +54,14 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'role_id', 'name', 'email', 'password',
-    ];
+    protected $fillable = ['role_id', 'name', 'email', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * Get user id.
