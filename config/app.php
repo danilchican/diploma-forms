@@ -235,4 +235,32 @@ return [
     'roles' => [
         'admin' => 'Администратор',
     ],
+
+    'answer_types' => [
+        [
+            'title'            => 'Один из списка',
+            'type'             => 'radio',
+            'answers_required' => true,
+        ],
+        [
+            'title'            => 'Несколько из списка',
+            'type'             => 'checkbox',
+            'answers_required' => true,
+        ],
+        [
+            'title'            => 'Выпадающий список',
+            'type'             => 'select',
+            'answers_required' => true,
+        ],
+        [
+            'title'            => 'Текст (строка)',
+            'type'             => 'text',
+            'answers_required' => false,
+        ],
+        [
+            'title'            => 'Текст (абзац)',
+            'type'             => 'textarea',
+            'answers_required' => false,
+        ],
+    ],
 ];
