@@ -29,9 +29,9 @@
                             </label>
                             <div id="question-answer-variants">
                                 <div v-for="(answer, index) in question.answers">
-                                    <view-answer-variant :index="index + 1" :answer="answer"
-                                                         :answerType="findAnswerTypeByType(question.selectedAnswerType)"
-                                    />
+                                    <view-answer-variant :answerType="findAnswerTypeByType(question.selectedAnswerType)"
+                                                         :answer="answer" :index="index"
+                                                         @onAnswerDeleted="deleteAnswer"/>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,12 @@
             },
 
             onAnswerTypeChange(event) {
-                // console.log(event);
+                // console.log(event)
+            },
+
+            deleteAnswer(index) {
+                console.log(index)
+                this.question.answers.splice(index, 1)
             },
 
             findAnswerTypeByType(type) {

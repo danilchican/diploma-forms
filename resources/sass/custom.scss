@@ -4983,3 +4983,7 @@ ul.notifications {
 .input-group-addon {
   background-color: #f9f9f9;
 }
+
+.input-group-addon:last-child {
+  padding: 3px 8px;
+}
