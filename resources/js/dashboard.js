@@ -1,6 +1,7 @@
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
 window.toastr = require('toastr');
+window.Vue = require('vue');
 
 require('bootstrap');
 require('./libs/smartresize');
@@ -20,3 +21,9 @@ window.toastr.options = {
     "closeDuration": 300,
     "extendedTimeOut": 5000
 };
+
+Vue.component('create-form', require('./components/CreateFormComponent.vue').default);
+
+const app = new Vue({
+    el: '#app'
+});

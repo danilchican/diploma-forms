@@ -4,7 +4,7 @@
     @include('partials.dashboard.head')
 </head>
 <body class="nav-md">
-<div id="app">
+<div>
     <div class="container body">
         <div class="main_container">
 
@@ -18,7 +18,9 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                @yield('content')
+                <div id="app">
+                    @yield('content')
+                </div>
             </div>
             <!-- /page content -->
         </div>

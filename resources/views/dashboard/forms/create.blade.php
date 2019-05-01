@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['subtitle' => 'Опросы | Добавление нового опроса'])
 
 @section('content')
     <div class="row">
@@ -11,7 +11,7 @@
                 <div class="x_content">
                     @include('partials.dashboard.messages')
                     {{--TODO change store url--}}
-                    <forms-create store-url="#"></forms-create>
+                    <create-form store-url="#"></create-form>
                 </div>
             </div>
         </div>
