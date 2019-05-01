@@ -1,20 +1,20 @@
 <template>
     <div>
-        <div class="ln_solid"></div>
+        <p v-if="index === 1" style="margin: 0;">Добавьте первый вопрос.</p>
         <div v-if="isAddQuestionBtnClicked" id="add-new-form-question">
+            <div class="ln_solid"></div>
             <div class="row">
                 <!--TODO onsubmit-->
                 <form class="form-horizontal form-label-left" onsubmit="return false;">
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <label for="form-title">Название вопроса: <span class="required">*</span></label>
-                            <input v-model="question.title" id="form-title" placeholder="Введите название опроса"
+                            <input v-model="title" id="form-title" placeholder="Введите название опроса"
                                    class="form-control" required="required"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <label for="form-answer-type">Тип ответа: <span class="required">*</span></label>
                             <select v-model="question.selectedAnswerType" id="form-answer-type"
-                                    @change="onAnswerTypeChange"
                                     class="form-control" required="required">
                                 <option v-for="answerType in answerTypes" :value="answerType.type">
                                     {{ answerType.title}}
@@ -52,7 +52,7 @@
             <button @click="declineAddQuestion" type="button" class="btn btn-sm btn-danger">Отмена</button>
             <button @click="saveQuestion" type="button" class="btn btn-sm btn-success">Сохранить вопрос</button>
         </div>
-        <button v-else @click="addQuestion" type="button"
+        <button v-else @click="addQuestion" type="button" style="margin-top: 10px;"
                 class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button>
     </div>
 </template>
@@ -61,13 +61,12 @@
     import ViewAnswerVariant from './ViewAnswerVariantComponent.vue'
 
     export default {
-        props: ['answerTypes'],
+        props: ['index', 'answerTypes'],
 
         data() {
             return {
                 isAddQuestionBtnClicked: false,
                 question: {
-                    title: '',
                     selectedAnswerType: 'radio',
                     answers: []
                 }
@@ -75,9 +74,13 @@
         },
 
         computed: {
+            title() {
+                return 'Вопрос без заголовка ' + this.index;
+            },
+
             answerTypeNeedsAnswerVariants() {
                 let _answerType = this.findAnswerTypeByType(this.question.selectedAnswerType)
-                return (_answerType instanceof Object) ? _answerType.answers_required : false;
+                return (_answerType instanceof Object) ? _answerType.answers_required : false
             },
 
             textAnswerValuePlaceholder() {
@@ -105,13 +108,9 @@
             },
 
             saveQuestion() {
-                this.$emit('questionCreated', JSON.parse(JSON.stringify(this.question)))
+                this.$emit('questionCreated', JSON.parse(JSON.stringify(this.getQuestionInfo())))
                 this.cleanQuestionForm()
                 this.toggleAddQuestionBtn()
-            },
-
-            onAnswerTypeChange(event) {
-                // console.log(event)
             },
 
             deleteAnswer(index) {
@@ -123,8 +122,15 @@
                 return this.answerTypes.filter(v => v.type === type)[0]
             },
 
-            cleanQuestionForm() { // TODO
-                this.question.title = ''
+            getQuestionInfo() {
+                return {
+                    title: this.title,
+                    desciption: this.question.description,
+                    answers: this.question.answers
+                }
+            },
+
+            cleanQuestionForm() {
                 this.question.selectedAnswerType = 'radio'
                 this.question.answers = []
             }

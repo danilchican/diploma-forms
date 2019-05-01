@@ -16,12 +16,12 @@
                     </div>
                     <div class="x_content">
                         <div id="questions-list" v-if="questions.length > 0">
-                            <draggable v-model="questions" :clone="clone"
+                            <draggable v-model="questions"
                                        handle=".handle"
                                        v-bind="dragOptions"
                                        @start="drag = true"
                                        @end="drag = false"
-                                       :options="{group:{name:'questions', pull:'clone', put: false}}">
+                                       :options="{group:{name:'questions', pull: false, put: false}}">
                                 <transition-group type="transition" :name="!drag ? 'flip-questions' : null">
                                     <div class="question-item" v-for="(question, index) in questions"
                                          :key="question.title">
@@ -41,9 +41,9 @@
                                 </transition-group>
                             </draggable>
                         </div>
-                        <p v-else style="margin: 0;">Добавьте первый вопрос.</p>
                         <div class="clearfix"></div>
-                        <add-question :answerTypes="answerTypes" @questionCreated="addQuestion"></add-question>
+                        <add-question :index="questions.length + 1" :answerTypes="answerTypes"
+                                      @questionCreated="addQuestion"/>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
     import AddMainInformationComponent from './FormMainInformationComponent'
 
     export default {
-        props: ['answerTypes','storeUrl', 'declineUrl'],
+        props: ['answerTypes', 'storeUrl', 'declineUrl'],
 
         data() {
             return {
@@ -74,12 +74,6 @@
                     index: null,
                     title: ''
                 }
-            }
-        },
-
-        watch: {
-            questions() {
-                console.log(this.questions)
             }
         },
 
@@ -95,9 +89,6 @@
         },
 
         methods: {
-            clone(original) {
-                return JSON.parse(JSON.stringify(original))
-            },
 
             remove(index) {
                 this.questions.splice(index, 1)
