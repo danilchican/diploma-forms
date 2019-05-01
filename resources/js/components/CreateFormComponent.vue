@@ -33,7 +33,7 @@
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                             <button @click="deleteQuestion(index)" type="button"
-                                                    class="btn btn-xs btn-danger">
+                                                    class="btn btn-xs btn-danger" :disabled="isQuestionEdit">
                                                 <i class="fa fa-close"></i>
                                             </button>
                                         </span>

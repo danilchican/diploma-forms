@@ -17,7 +17,7 @@
                 <span class="add-on input-group-addon">
                     <input :type="answerType.type" disabled="disabled"/> <span>{{ index + 1 }}.</span>
                 </span>
-                <input type="text" class="form-control" v-model="answer" placeholder="Введите вариант ответа"/>
+                <input type="text" class="form-control" v-model="innerAnswer" placeholder="Введите вариант ответа"/>
                 <span class="input-group-addon" v-if="index !== 0">
                     <button type="button" class="btn btn-xs btn-danger" style="margin: 0;"
                             @click="deleteAnswer">
@@ -32,6 +32,18 @@
 <script>
     export default {
         props: ['index', 'answer', 'answerType'],
+
+        data() {
+            return {
+                innerAnswer: this.answer
+            }
+        },
+
+        watch: {
+            innerAnswer() {
+                this.$emit('onAnswerChanged', {index: this.index, title: this.innerAnswer});
+            }
+        },
 
         methods: {
             isType(typeName) {

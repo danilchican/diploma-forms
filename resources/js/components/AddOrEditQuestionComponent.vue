@@ -34,13 +34,14 @@
                                 <div v-for="(answer, index) in question.answers">
                                     <view-answer-variant :answerType="findAnswerTypeByType(question.selectedAnswerType)"
                                                          :answer="answer" :index="index"
+                                                         @onAnswerChanged="updateAnswer"
                                                          @onAnswerDeleted="deleteAnswer"/>
                                 </div>
-                                <button @click="addAnswer" type="button" class="btn btn-xs btn-primary">
-                                    <i class="fa fa-plus"></i> Добавить ответ
-                                </button>
                             </div>
                             <p v-else>Добавьте хотя бы один ответ на вопрос.</p>
+                            <button @click="addAnswer" type="button" class="btn btn-xs btn-primary">
+                                <i class="fa fa-plus"></i> Добавить ответ
+                            </button>
                         </div>
                     </div>
                     <div class="form-group" v-else>
@@ -135,6 +136,10 @@
 
             deleteAnswer(index) {
                 this.question.answers.splice(index, 1)
+            },
+
+            updateAnswer(answer) {
+                this.question.answers[answer.index] = answer.title;
             },
 
             findAnswerTypeByType(type) {
