@@ -36,8 +36,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group" v-else>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" class="form-control" v-model="textAnswerValuePlaceholder"
+                                   style="opacity: 0.8;" readonly/>
+                        </div>
+                    </div>
                 </form>
             </div>
+            <div class="ln_solid"></div>
             <button @click="toggleAddQuestionBtn" type="button" class="btn btn-sm btn-danger">Отмена</button>
             <button @click="saveQuestion" type="button" class="btn btn-sm btn-success">Сохранить вопрос</button>
         </div>
@@ -67,6 +74,10 @@
             answerTypeNeedsAnswerVariants() {
                 let _answerType = this.findAnswerTypeByType(this.question.selectedAnswerType)
                 return (_answerType instanceof Object) ? _answerType.answers_required : false;
+            },
+
+            textAnswerValuePlaceholder() {
+                return this.question.selectedAnswerType === 'text' ? 'Краткий ответ' : 'Развернутый ответ'
             }
         },
 

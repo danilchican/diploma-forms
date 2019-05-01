@@ -9,7 +9,7 @@
         <div v-else>
             <div class="input-prepend input-group">
                 <span class="add-on input-group-addon">
-                    <input :type="answerType.type" class="flat" disabled="disabled"/> <span>{{ index }}.</span>
+                    <input :type="answerType.type" disabled="disabled"/> <span>{{ index }}.</span>
                 </span>
                 <input type="text" class="form-control" v-model="answer" placeholder="Введите вариант ответа"/>
             </div>
