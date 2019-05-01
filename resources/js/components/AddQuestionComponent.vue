@@ -28,9 +28,10 @@
                                 Варианты ответов: <span class="required">*</span>
                             </label>
                             <div id="question-answer-variants">
-                                <div v-for="answer in question.answers">
-                                    <view-answer-variant :answer="answer"
-                                                         :type="findAnswerTypeByType(question.selectedAnswerType)"/>
+                                <div v-for="(answer, index) in question.answers">
+                                    <view-answer-variant :index="index + 1" :answer="answer"
+                                                         :answerType="findAnswerTypeByType(question.selectedAnswerType)"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -76,13 +77,14 @@
 
             addQuestion() {
                 this.question.answers.push('Вариант 1');
+                this.question.answers.push('Вариант 2');
                 this.toggleAddQuestionBtn()
             },
 
             saveQuestion() {
                 this.$emit('questionCreated', JSON.parse(JSON.stringify(this.question)))
-                this.toggleAddQuestionBtn()
                 this.cleanQuestionForm()
+                this.toggleAddQuestionBtn()
             },
 
             onAnswerTypeChange(event) {
@@ -95,7 +97,8 @@
 
             cleanQuestionForm() { // TODO
                 this.question.title = ''
-                this.question.selectedAnswerType = 1
+                this.question.selectedAnswerType = 'radio'
+                this.question.answers = []
             }
         },
 
