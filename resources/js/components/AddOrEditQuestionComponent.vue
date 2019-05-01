@@ -22,6 +22,13 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label>Обязательный вопрос: <span class="required">*</span>
+                                <input type="checkbox" v-model="question.is_required" required="required"/>
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-group" v-if="answerTypeNeedsAnswerVariants">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <label for="question-answer-variants">
@@ -70,6 +77,7 @@
                 isAddQuestionBtnClicked: false,
                 question: {
                     title: 'Вопрос без заголовка ' + this.index,
+                    is_required: true,
                     selectedAnswerType: 'radio',
                     answers: []
                 }
@@ -157,6 +165,7 @@
                 return {
                     index: this.editQuestionIndex,
                     title: this.question.title,
+                    is_required: this.question.is_required,
                     selectedAnswerType: this.question.selectedAnswerType,
                     answers: _answersRequired ? this.question.answers : []
                 }
@@ -167,6 +176,7 @@
 
                 return {
                     title: this.question.title,
+                    is_required: this.question.is_required,
                     selectedAnswerType: this.question.selectedAnswerType,
                     answers: _answersRequired ? this.question.answers : []
                 }
@@ -176,6 +186,7 @@
                 this.$parent.isQuestionEdit = false
                 this.$parent.editQuestionIndex = null
 
+                this.question.is_required = true
                 this.question.selectedAnswerType = 'radio'
                 this.question.answers = []
             }
