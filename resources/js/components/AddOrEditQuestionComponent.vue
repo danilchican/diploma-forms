@@ -71,6 +71,7 @@
             return {
                 rendered: true,
                 isAddQuestionBtnClicked: false,
+                title: 'Вопрос без заголовка ' + this.index,
                 question: {
                     title: '',
                     selectedAnswerType: 'radio',
@@ -88,12 +89,13 @@
                     this.cleanQuestionForm()
                 }
             },
+
+            index() {
+                this.title = 'Вопрос без заголовка ' + this.index
+            }
         },
 
         computed: {
-            title() {
-                return 'Вопрос без заголовка ' + this.index;
-            },
 
             answerTypeNeedsAnswerVariants() {
                 let _answerType = this.findAnswerTypeByType(this.question.selectedAnswerType)
