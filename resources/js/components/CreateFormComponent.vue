@@ -41,7 +41,7 @@
                                 </transition-group>
                             </draggable>
                         </div>
-                        <p v-else>Добавьте первый вопрос.</p>
+                        <p v-else style="margin: 0;">Добавьте первый вопрос.</p>
                         <div class="clearfix"></div>
                         <add-question @questionCreated="addQuestion"></add-question>
                     </div>

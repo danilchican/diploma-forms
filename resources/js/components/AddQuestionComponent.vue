@@ -6,10 +6,17 @@
                 <!--TODO onsubmit-->
                 <form class="form-horizontal form-label-left" onsubmit="return false;">
                     <div class="form-group">
-                        <div class="col-md-7 col-sm-7 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <label for="form-title">Название вопроса: <span class="required">*</span></label>
                             <input v-model="question.title" id="form-title" placeholder="Введите название опроса"
                                    class="form-control" required="required"/>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="form-answer-type">Тип ответа: <span class="required">*</span></label>
+                            <select id="form-answer-type" class="form-control" required="required">
+                                <!--TODO populate data-->
+                                <option value="0" selected disabled>Выберите тип ответа...</option>
+                            </select>
                         </div>
                     </div>
                 </form>
