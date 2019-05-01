@@ -42,8 +42,11 @@
                             </draggable>
                         </div>
                         <div class="clearfix"></div>
-                        <add-question :index="questions.length + 1" :answerTypes="answerTypes"
-                                      @questionCreated="addQuestion"/>
+                        <add-or-edit-question :index="questions.length + 1"
+                                              :answerTypes="answerTypes"
+                                              :isQuestionEdit="isQuestionEdit"
+                                              :editQuestionIndex="editQuestionIndex"
+                                              @questionCreated="addQuestion"/>
                     </div>
                 </div>
             </div>
@@ -58,7 +61,7 @@
 
 <script>
     import draggable from 'vuedraggable'
-    import AddQuestionComponent from './AddQuestionComponent'
+    import AddOrEditQuestionComponent from './AddOrEditQuestionComponent'
     import AddMainInformationComponent from './FormMainInformationComponent'
 
     export default {
@@ -67,13 +70,11 @@
         data() {
             return {
                 drag: false,
+                isQuestionEdit: false,
+                editQuestionIndex: null,
                 title: '',
                 description: '',
                 questions: [],
-                editableQuestion: {
-                    index: null,
-                    title: ''
-                }
             }
         },
 
@@ -89,7 +90,6 @@
         },
 
         methods: {
-
             remove(index) {
                 this.questions.splice(index, 1)
             },
@@ -108,13 +108,17 @@
             },
 
             editQuestion(index) {
-                console.log('editQuestion clicked')
+                let _question = this.questions[index];
+                this.editQuestionIndex = index;
+                this.isQuestionEdit = true;
+
+                console.log(this.editQuestionIndex, _question);
             }
         },
 
         components: {
             'draggable': draggable,
-            'add-question': AddQuestionComponent,
+            'add-or-edit-question': AddOrEditQuestionComponent,
             'add-main-information': AddMainInformationComponent
         }
     }

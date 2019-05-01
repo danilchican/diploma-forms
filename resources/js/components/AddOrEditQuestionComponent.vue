@@ -1,7 +1,7 @@
 <template>
     <div>
         <p v-if="index === 1" style="margin: 0;">Добавьте первый вопрос.</p>
-        <div v-if="isAddQuestionBtnClicked" id="add-new-form-question">
+        <div v-if="isAddQuestionBtnClicked || isQuestionEdit" id="add-new-form-question">
             <div class="ln_solid"></div>
             <div class="row">
                 <!--TODO onsubmit-->
@@ -9,7 +9,10 @@
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <label for="form-title">Название вопроса: <span class="required">*</span></label>
-                            <input v-model="title" id="form-title" placeholder="Введите название опроса"
+                            <input v-if="!isQuestionEdit" v-model="title" id="form-title"
+                                   placeholder="Введите название опроса"
+                                   class="form-control" required="required"/>
+                            <input v-else v-model="question.title" id="form-title" placeholder="Введите название опроса"
                                    class="form-control" required="required"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -49,7 +52,7 @@
                 </form>
             </div>
             <div class="ln_solid"></div>
-            <button @click="declineAddQuestion" type="button" class="btn btn-sm btn-danger">Отмена</button>
+            <button @click="declineAddOrEditQuestion" type="button" class="btn btn-sm btn-danger">Отмена</button>
             <button @click="saveQuestion" type="button" class="btn btn-sm btn-success">Сохранить вопрос</button>
         </div>
         <button v-else @click="addQuestion" type="button" style="margin-top: 10px;"
@@ -61,14 +64,27 @@
     import ViewAnswerVariant from './ViewAnswerVariantComponent.vue'
 
     export default {
-        props: ['index', 'answerTypes'],
+        props: ['index', 'answerTypes', 'isQuestionEdit', 'editQuestionIndex'],
 
         data() {
             return {
                 isAddQuestionBtnClicked: false,
                 question: {
+                    index: this.editQuestionIndex,
+                    title: '',
                     selectedAnswerType: 'radio',
                     answers: []
+                }
+            }
+        },
+
+        watch: {
+            isQuestionEdit() {
+                if (this.isQuestionEdit) {
+                    let _question = this.$parent.questions[this.editQuestionIndex]
+                    this.question = JSON.parse(JSON.stringify(_question))
+                } else {
+                    this.editableQuestion = null
                 }
             }
         },
@@ -89,32 +105,36 @@
         },
 
         methods: {
-            toggleAddQuestionBtn() {
-                this.isAddQuestionBtnClicked = !this.isAddQuestionBtnClicked
+            toggleAddQuestionBtn(value) {
+                this.isAddQuestionBtnClicked = value
             },
 
             addQuestion() {
                 this.question.answers.push('Вариант 1')
-                this.toggleAddQuestionBtn()
+                this.toggleAddQuestionBtn(true)
             },
 
             addAnswer() {
                 this.question.answers.push('Вариант ' + (this.question.answers.length + 1))
             },
 
-            declineAddQuestion() {
+            declineAddOrEditQuestion() {
                 this.cleanQuestionForm()
-                this.toggleAddQuestionBtn()
+                this.toggleAddQuestionBtn(false)
             },
 
             saveQuestion() {
-                this.$emit('questionCreated', JSON.parse(JSON.stringify(this.getQuestionInfo())))
+                if (this.isQuestionEdit) {
+                    this.$emit('questionUpdated', JSON.parse(JSON.stringify(this.getEditableQuestionInfo())))
+                } else {
+                    this.$emit('questionCreated', JSON.parse(JSON.stringify(this.getQuestionInfo())))
+                }
+
                 this.cleanQuestionForm()
-                this.toggleAddQuestionBtn()
+                this.toggleAddQuestionBtn(false)
             },
 
             deleteAnswer(index) {
-                console.log(index)
                 this.question.answers.splice(index, 1)
             },
 
@@ -122,15 +142,32 @@
                 return this.answerTypes.filter(v => v.type === type)[0]
             },
 
+            getEditableQuestionInfo() {
+                let _answersRequired = this.findAnswerTypeByType(this.question.selectedAnswerType).answers_required;
+
+                return {
+                    title: this.question.title,
+                    selectedAnswerType: this.question.selectedAnswerType,
+                    answers: _answersRequired ? this.question.answers : []
+                }
+            },
+
             getQuestionInfo() {
+                let _answersRequired = this.findAnswerTypeByType(this.question.selectedAnswerType).answers_required;
+
                 return {
                     title: this.title,
                     selectedAnswerType: this.question.selectedAnswerType,
-                    answers: this.question.answers
+                    answers: _answersRequired ? this.question.answers : []
                 }
             },
 
             cleanQuestionForm() {
+                this.$parent.isQuestionEdit = false
+                this.$parent.editQuestionIndex = null
+
+                this.question.index = null
+                this.question.title = ''
                 this.question.selectedAnswerType = 'radio'
                 this.question.answers = []
             }
