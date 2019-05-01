@@ -9,10 +9,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <label for="form-title">Название вопроса: <span class="required">*</span></label>
-                            <input v-if="!isQuestionEdit" v-model="title" id="form-title"
-                                   placeholder="Введите название опроса"
-                                   class="form-control" required="required"/>
-                            <input v-else v-model="question.title" id="form-title" placeholder="Введите название опроса"
+                            <input v-model="question.title" id="form-title" placeholder="Введите название опроса"
                                    class="form-control" required="required"/>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -71,9 +68,8 @@
             return {
                 rendered: true,
                 isAddQuestionBtnClicked: false,
-                title: 'Вопрос без заголовка ' + this.index,
                 question: {
-                    title: '',
+                    title: 'Вопрос без заголовка ' + this.index,
                     selectedAnswerType: 'radio',
                     answers: []
                 }
@@ -91,7 +87,7 @@
             },
 
             index() {
-                this.title = 'Вопрос без заголовка ' + this.index
+                this.question.title = 'Вопрос без заголовка ' + this.index
             }
         },
 
@@ -170,7 +166,7 @@
                 let _answersRequired = this.findAnswerTypeByType(this.question.selectedAnswerType).answers_required;
 
                 return {
-                    title: this.title,
+                    title: this.question.title,
                     selectedAnswerType: this.question.selectedAnswerType,
                     answers: _answersRequired ? this.question.answers : []
                 }
@@ -180,7 +176,6 @@
                 this.$parent.isQuestionEdit = false
                 this.$parent.editQuestionIndex = null
 
-                this.question.title = ''
                 this.question.selectedAnswerType = 'radio'
                 this.question.answers = []
             }
