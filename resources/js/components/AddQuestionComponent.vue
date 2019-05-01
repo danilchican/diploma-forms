@@ -33,6 +33,9 @@
                                                          :answer="answer" :index="index"
                                                          @onAnswerDeleted="deleteAnswer"/>
                                 </div>
+                                <button @click="addAnswer" type="button" class="btn btn-xs btn-primary">
+                                    <i class="fa fa-plus"></i> Добавить ответ
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -88,8 +91,11 @@
 
             addQuestion() {
                 this.question.answers.push('Вариант 1')
-                this.question.answers.push('Вариант 2')
                 this.toggleAddQuestionBtn()
+            },
+
+            addAnswer() {
+                this.question.answers.push('Вариант ' + (this.question.answers.length + 1))
             },
 
             declineAddQuestion() {
