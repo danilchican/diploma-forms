@@ -125,7 +125,7 @@
             getQuestionInfo() {
                 return {
                     title: this.title,
-                    desciption: this.question.description,
+                    selectedAnswerType: this.question.selectedAnswerType,
                     answers: this.question.answers
                 }
             },
