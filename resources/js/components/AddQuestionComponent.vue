@@ -13,30 +13,59 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <label for="form-answer-type">Тип ответа: <span class="required">*</span></label>
-                            <select id="form-answer-type" class="form-control" required="required">
-                                <!--TODO populate data-->
-                                <option value="0" selected disabled>Выберите тип ответа...</option>
+                            <select v-model="question.selectedAnswerType" id="form-answer-type"
+                                    @change="onAnswerTypeChange"
+                                    class="form-control" required="required">
+                                <option v-for="answerType in answerTypes" :value="answerType.type">
+                                    {{ answerType.title}}
+                                </option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group" v-if="answerTypeNeedsAnswerVariants">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label for="question-answer-variants">
+                                Варианты ответов: <span class="required">*</span>
+                            </label>
+                            <div id="question-answer-variants">
+                                <div v-for="answer in question.answers">
+                                    <view-answer-variant :answer="answer"
+                                                         :type="findAnswerTypeByType(question.selectedAnswerType)"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
             <button @click="toggleAddQuestionBtn" type="button" class="btn btn-sm btn-danger">Отмена</button>
-            <button @click="addQuestion" type="button" class="btn btn-sm btn-success">Добавить</button>
+            <button @click="saveQuestion" type="button" class="btn btn-sm btn-success">Сохранить вопрос</button>
         </div>
-        <button v-else @click="toggleAddQuestionBtn" type="button"
+        <button v-else @click="addQuestion" type="button"
                 class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button>
     </div>
 </template>
 
 <script>
+    import ViewAnswerVariant from './ViewAnswerVariantComponent.vue'
+
     export default {
+        props: ['answerTypes'],
+
         data() {
             return {
                 isAddQuestionBtnClicked: false,
                 question: {
                     title: '',
+                    selectedAnswerType: 'radio',
+                    answers: []
                 }
+            }
+        },
+
+        computed: {
+            answerTypeNeedsAnswerVariants() {
+                let _answerType = this.findAnswerTypeByType(this.question.selectedAnswerType)
+                return (_answerType instanceof Object) ? _answerType.answers_required : false;
             }
         },
 
@@ -46,14 +75,32 @@
             },
 
             addQuestion() {
+                this.question.answers.push('Вариант 1');
+                this.toggleAddQuestionBtn()
+            },
+
+            saveQuestion() {
                 this.$emit('questionCreated', JSON.parse(JSON.stringify(this.question)))
                 this.toggleAddQuestionBtn()
                 this.cleanQuestionForm()
             },
 
+            onAnswerTypeChange(event) {
+                // console.log(event);
+            },
+
+            findAnswerTypeByType(type) {
+                return this.answerTypes.filter(v => v.type === type)[0]
+            },
+
             cleanQuestionForm() { // TODO
                 this.question.title = ''
+                this.question.selectedAnswerType = 1
             }
+        },
+
+        components: {
+            'view-answer-variant': ViewAnswerVariant
         }
     }
 </script>

@@ -43,7 +43,7 @@
                         </div>
                         <p v-else style="margin: 0;">Добавьте первый вопрос.</p>
                         <div class="clearfix"></div>
-                        <add-question @questionCreated="addQuestion"></add-question>
+                        <add-question :answerTypes="answerTypes" @questionCreated="addQuestion"></add-question>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
     import AddMainInformationComponent from './FormMainInformationComponent'
 
     export default {
-        props: ['storeUrl', 'declineUrl'],
+        props: ['answerTypes','storeUrl', 'declineUrl'],
 
         data() {
             return {
