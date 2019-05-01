@@ -27,7 +27,11 @@
                                          :key="question.title">
                                         <span class="handle"><i class="fa fa-sort"></i></span>&nbsp;
                                         {{ index + 1 }}. {{ question.title }}
-                                        <span class="pull-right">
+                                        <span class="pull-right" style="display: flex">
+                                             <button @click="editQuestion(index)" type="button"
+                                                     class="btn btn-xs btn-primary">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
                                             <button @click="deleteQuestion(index)" type="button"
                                                     class="btn btn-xs btn-danger">
                                                 <i class="fa fa-close"></i>
@@ -109,7 +113,11 @@
             },
 
             deleteQuestion(index) {
-                this.questions.splice(index, 1);
+                this.questions.splice(index, 1)
+            },
+
+            editQuestion(index) {
+                console.log('editQuestion clicked')
             }
         },
 
