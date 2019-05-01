@@ -25,6 +25,7 @@
         "sass-loader": "^7.1.0",
         "toastr": "^2.1.4",
         "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "vuedraggable": "^2.20.0"
     }
 }
