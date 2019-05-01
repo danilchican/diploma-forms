@@ -15,6 +15,8 @@ use UnexpectedValueException;
  *               $name
  * @property string
  *               $email
+ * @property int|null
+ *               $role_id
  * @property string|null
  *               $email_verified_at
  * @property string
@@ -40,10 +42,8 @@ use UnexpectedValueException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property int|null
- *               $role_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRoleId($value)
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
