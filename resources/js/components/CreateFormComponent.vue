@@ -29,7 +29,7 @@
                                         {{ index + 1 }}. {{ question.title }}
                                         <span class="pull-right" style="display: flex">
                                              <button @click="editQuestion(index)" type="button"
-                                                     class="btn btn-xs btn-primary">
+                                                     class="btn btn-xs btn-primary" :disabled="isQuestionEdit">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                             <button @click="deleteQuestion(index)" type="button"
@@ -46,7 +46,8 @@
                                               :answerTypes="answerTypes"
                                               :isQuestionEdit="isQuestionEdit"
                                               :editQuestionIndex="editQuestionIndex"
-                                              @questionCreated="addQuestion"/>
+                                              @questionCreated="addQuestion"
+                                              @questionUpdated="updateQuestion"/>
                     </div>
                 </div>
             </div>
@@ -103,16 +104,17 @@
                 this.questions.push(question)
             },
 
+            updateQuestion(question) {
+                this.questions[question.index] = question
+            },
+
             deleteQuestion(index) {
                 this.questions.splice(index, 1)
             },
 
             editQuestion(index) {
-                let _question = this.questions[index];
-                this.editQuestionIndex = index;
-                this.isQuestionEdit = true;
-
-                console.log(this.editQuestionIndex, _question);
+                this.editQuestionIndex = index
+                this.isQuestionEdit = true
             }
         },
 

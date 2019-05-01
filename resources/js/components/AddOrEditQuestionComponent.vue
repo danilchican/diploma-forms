@@ -70,7 +70,6 @@
             return {
                 isAddQuestionBtnClicked: false,
                 question: {
-                    index: this.editQuestionIndex,
                     title: '',
                     selectedAnswerType: 'radio',
                     answers: []
@@ -84,7 +83,7 @@
                     let _question = this.$parent.questions[this.editQuestionIndex]
                     this.question = JSON.parse(JSON.stringify(_question))
                 } else {
-                    this.editableQuestion = null
+                    this.cleanQuestionForm()
                 }
             }
         },
@@ -146,6 +145,7 @@
                 let _answersRequired = this.findAnswerTypeByType(this.question.selectedAnswerType).answers_required;
 
                 return {
+                    index: this.editQuestionIndex,
                     title: this.question.title,
                     selectedAnswerType: this.question.selectedAnswerType,
                     answers: _answersRequired ? this.question.answers : []
@@ -166,7 +166,6 @@
                 this.$parent.isQuestionEdit = false
                 this.$parent.editQuestionIndex = null
 
-                this.question.index = null
                 this.question.title = ''
                 this.question.selectedAnswerType = 'radio'
                 this.question.answers = []
