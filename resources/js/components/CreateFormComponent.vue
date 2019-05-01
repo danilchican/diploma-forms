@@ -27,6 +27,12 @@
                                          :key="question.title">
                                         <span class="handle"><i class="fa fa-sort"></i></span>&nbsp;
                                         {{ index + 1 }}. {{ question.title }}
+                                        <span class="pull-right">
+                                            <button @click="deleteQuestion(index)" type="button"
+                                                    class="btn btn-xs btn-danger">
+                                                <i class="fa fa-close"></i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </transition-group>
                             </draggable>
@@ -99,9 +105,11 @@
             },
 
             addQuestion(question) {
-                console.log(question);
                 this.questions.push(question)
-                console.log('question is added.')
+            },
+
+            deleteQuestion(index) {
+                this.questions.splice(index, 1);
             }
         },
 
