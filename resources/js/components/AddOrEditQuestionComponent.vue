@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="rendered">
         <p v-if="index === 1" style="margin: 0;">Добавьте первый вопрос.</p>
         <div v-if="isAddQuestionBtnClicked || isQuestionEdit" id="add-new-form-question">
             <div class="ln_solid"></div>
@@ -69,6 +69,7 @@
 
         data() {
             return {
+                rendered: true,
                 isAddQuestionBtnClicked: false,
                 question: {
                     title: '',
@@ -86,7 +87,7 @@
                 } else {
                     this.cleanQuestionForm()
                 }
-            }
+            },
         },
 
         computed: {
@@ -136,6 +137,12 @@
 
             deleteAnswer(index) {
                 this.question.answers.splice(index, 1)
+                this.rendered = false;
+
+                this.$nextTick(() => {
+                    // Add the component back in
+                    this.rendered = true;
+                });
             },
 
             updateAnswer(answer) {
