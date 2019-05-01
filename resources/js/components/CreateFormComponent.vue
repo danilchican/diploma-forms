@@ -20,7 +20,7 @@
                         </ul>
                         <p v-else>Добавьте первый вопрос.</p>
                         <div class="clearfix"></div>
-                        <add-question></add-question>
+                        <add-question @questionCreated="addQuestion"></add-question>
                     </div>
                 </div>
             </div>
@@ -71,6 +71,11 @@
             onMainInfoChanged(info) {
                 this.title = info.title;
                 this.description = info.description;
+            },
+
+            addQuestion(question) {
+                this.questions.push(question);
+                console.log('question is added.');
             }
         },
 
