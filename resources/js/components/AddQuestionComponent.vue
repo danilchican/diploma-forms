@@ -27,7 +27,7 @@
                             <label for="question-answer-variants">
                                 Варианты ответов: <span class="required">*</span>
                             </label>
-                            <div id="question-answer-variants">
+                            <div v-if="question.answers.length > 0" id="question-answer-variants">
                                 <div v-for="(answer, index) in question.answers">
                                     <view-answer-variant :answerType="findAnswerTypeByType(question.selectedAnswerType)"
                                                          :answer="answer" :index="index"
@@ -37,6 +37,7 @@
                                     <i class="fa fa-plus"></i> Добавить ответ
                                 </button>
                             </div>
+                            <p v-else>Добавьте хотя бы один ответ на вопрос.</p>
                         </div>
                     </div>
                     <div class="form-group" v-else>
