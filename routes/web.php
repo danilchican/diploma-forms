@@ -25,8 +25,11 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
 /* Dashboard Routes */
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth.access:admin']], function () {
-    Route::get('/', 'Dashboard\DashboardController')->name('dashboard.home');
+Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], 'as' => 'dashboard.'], function () {
+    Route::get('/', 'Dashboard\DashboardController')->name('home');
+    Route::group(['prefix' => '/forms', 'as' => 'forms.'], function () {
+        Route::get('/create', 'Dashboard\FormController@showCreateFormPage')->name('create');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
