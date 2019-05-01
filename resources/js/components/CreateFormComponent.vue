@@ -16,7 +16,12 @@
                     </div>
                     <div class="x_content">
                         <ul v-if="questions.length > 0">
-                            ...
+                            <draggable v-model="questions" :clone="clone"
+                                       :options="{group:{name:'questions', pull:'clone', put: false}}">
+                                <li v-for="(question, index) in questions">
+                                    <p>{{ index + 1 }}. {{ question }}</p>
+                                </li>
+                            </draggable>
                         </ul>
                         <p v-else>Добавьте первый вопрос.</p>
                         <div class="clearfix"></div>
