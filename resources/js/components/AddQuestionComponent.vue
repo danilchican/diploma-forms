@@ -45,7 +45,7 @@
                 </form>
             </div>
             <div class="ln_solid"></div>
-            <button @click="toggleAddQuestionBtn" type="button" class="btn btn-sm btn-danger">Отмена</button>
+            <button @click="declineAddQuestion" type="button" class="btn btn-sm btn-danger">Отмена</button>
             <button @click="saveQuestion" type="button" class="btn btn-sm btn-success">Сохранить вопрос</button>
         </div>
         <button v-else @click="addQuestion" type="button"
@@ -87,8 +87,13 @@
             },
 
             addQuestion() {
-                this.question.answers.push('Вариант 1');
-                this.question.answers.push('Вариант 2');
+                this.question.answers.push('Вариант 1')
+                this.question.answers.push('Вариант 2')
+                this.toggleAddQuestionBtn()
+            },
+
+            declineAddQuestion() {
+                this.cleanQuestionForm()
                 this.toggleAddQuestionBtn()
             },
 
