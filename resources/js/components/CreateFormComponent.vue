@@ -15,7 +15,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <ul v-if="questions.length > 0">
+                        <div id="questions-list" v-if="questions.length > 0">
                             <draggable v-model="questions" :clone="clone"
                                        handle=".handle"
                                        v-bind="dragOptions"
@@ -23,13 +23,14 @@
                                        @end="drag = false"
                                        :options="{group:{name:'questions', pull:'clone', put: false}}">
                                 <transition-group type="transition" :name="!drag ? 'flip-questions' : null">
-                                    <li v-for="(question, index) in questions" :key="question.title">
-                                        <p>{{ index + 1 }}. {{ question.title }}</p>
-                                        <button type="button" class="handle">...</button>
-                                    </li>
+                                    <div class="question-item" v-for="(question, index) in questions"
+                                         :key="question.title">
+                                        <span class="handle"><i class="fa fa-sort"></i></span>&nbsp;
+                                        {{ index + 1 }}. {{ question.title }}
+                                    </div>
                                 </transition-group>
                             </draggable>
-                        </ul>
+                        </div>
                         <p v-else>Добавьте первый вопрос.</p>
                         <div class="clearfix"></div>
                         <add-question @questionCreated="addQuestion"></add-question>

@@ -4963,3 +4963,19 @@ ul.notifications {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+.question-item {
+  position: relative;
+  padding: 10px 12px;
+  margin: 3px 0;
+  box-shadow: none;
+  border-radius: 0;
+  color: #666;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  font-size: 16px;
+}
+
+.question-item.ghost {
+  opacity: 0.4;
+}
