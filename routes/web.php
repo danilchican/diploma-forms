@@ -29,7 +29,9 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], '
     Route::get('/', 'Dashboard\DashboardController')->name('home');
     Route::group(['prefix' => '/forms', 'as' => 'forms.'], function () {
         Route::get('/', 'Dashboard\FormController@showFormsListPage')->name('index');
+
         Route::get('/create', 'Dashboard\FormController@showCreateFormPage')->name('create');
+        Route::post('/create', 'Dashboard\FormController@storeForm')->name('store');
     });
 });
 
