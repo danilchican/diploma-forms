@@ -38,6 +38,8 @@ class UserCanCreateFormTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
         $response->assertJsonStructure(['success', 'messages']);
+        $response->assertJsonFragment(['success' => true]);
+        $response->assertJsonFragment(['messages' => ['Опрос успешно создан.']]);
 
         $this->assertEquals(1, Form::count());
         $this->assertGeneralFormDetails($user);
