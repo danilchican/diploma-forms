@@ -101,4 +101,14 @@ class FormQuestion extends Model
     {
         return $this->belongsTo(AnswerType::class);
     }
+
+    /**
+     * Get related answers for a question.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
+    {
+        return $this->hasMany(AnswerVariant::class);
+    }
 }

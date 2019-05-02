@@ -155,6 +155,16 @@ class User extends Authenticatable
         return $this->getRoleSlug() === Role::ADMIN_ROLE_SLUG;
     }
 
+    /**
+     * Get related forms of the User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function forms()
+    {
+        return $this->hasMany(Form::class, 'author_id');
+    }
+
     private function hasAtLeastOneRole($roles)
     {
         foreach ($roles as $role) {

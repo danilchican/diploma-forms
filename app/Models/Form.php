@@ -123,4 +123,14 @@ class Form extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    /**
+     * Get related form questions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function questions()
+    {
+        return $this->hasMany(FormQuestion::class);
+    }
 }
