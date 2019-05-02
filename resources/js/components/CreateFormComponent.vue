@@ -8,7 +8,7 @@
             <div class="col-sm-12 col-md-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Вопросы ({{ questions.length }})</h2>
+                        <h2>Вопросы ({{ questions.length }}) <span style="color: #d40707;">*</span></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         </ul>
@@ -54,7 +54,9 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-lg-12">
-                <button type="button" class="btn btn-md btn-success pull-right">Сохранить опрос</button>
+                <button @click="storeForm" type="button" class="btn btn-md btn-success pull-right">
+                    Сохранить опрос
+                </button>
             </div>
         </div>
     </div>
@@ -66,7 +68,7 @@
     import AddMainInformationComponent from './FormMainInformationComponent'
 
     export default {
-        props: ['answerTypes', 'storeUrl', 'declineUrl'],
+        props: ['answerTypes', 'storeUrl'],
 
         data() {
             return {
@@ -115,6 +117,62 @@
             editQuestion(index) {
                 this.editQuestionIndex = index
                 this.isQuestionEdit = true
+            },
+
+            storeForm() {
+                if (!this.isFormValid()) {
+                    return;
+                }
+
+                let _payload = {
+                    title: this.title,
+                    description: this.description,
+                    questions: this.questions
+                }
+
+                axios.post(this.storeUrl, _payload).then(function (response) {
+                    let data = response.data
+                    console.log(data)
+
+                    if (data.success === true) {
+                        if (data.messages !== undefined) {
+                            $.each(data.messages, function (key, value) {
+                                toastr.success(value, 'Уведомление')
+                            });
+                        }
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    } else {
+                        if (data.errors !== undefined) {
+                            // error callback
+                            $.each(data.errors, function (key, value) {
+                                toastr.error(value, 'Ошибка')
+                            });
+                        } else {
+                            toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка')
+                        }
+                    }
+                }).catch(function (error) {
+                    let data = error.response.data
+                    console.log(data)
+
+                    if (data.errors !== undefined) {
+                        $.each(data.errors, function (key, value) {
+                            toastr.error(value, 'Ошибка')
+                        });
+                    } else if (data.messages !== undefined) {
+                        $.each(data.messages, function (key, value) {
+                            toastr.error(value, 'Ошибка')
+                        });
+                    } else {
+                        toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка')
+                    }
+                })
+            },
+
+            isFormValid() {
+                return true; // TODO
             }
         },
 

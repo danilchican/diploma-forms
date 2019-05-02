@@ -7,10 +7,15 @@ require('bootstrap');
 require('./libs/smartresize');
 require('./custom');
 
-window.token = $('meta[name="csrf-token"]').attr('content');
+window.axios = require('axios');
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-if (!token) {
-    console.error('CSRF token not found');
+let token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found.');
 }
 
 window.toastr.options = {
