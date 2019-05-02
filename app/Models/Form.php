@@ -39,6 +39,12 @@ class Form extends Model
     protected $casts = ['is_finished' => 'boolean'];
 
     /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+    /**
      * Get title of the form.
      *
      * @return string
@@ -99,16 +105,6 @@ class Form extends Model
     }
 
     /**
-     * Author of the Form.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'author_id');
-    }
-
-    /**
      * Get created date of the form.
      *
      * @return Carbon
@@ -116,5 +112,15 @@ class Form extends Model
     public function getCreatedDate()
     {
         return $this->created_at;
+    }
+
+    /**
+     * Author of the Form.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
     }
 }

@@ -28,6 +28,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], 'as' => 'dashboard.'], function () {
     Route::get('/', 'Dashboard\DashboardController')->name('home');
     Route::group(['prefix' => '/forms', 'as' => 'forms.'], function () {
+        Route::get('/', 'Dashboard\FormController@showFormsListPage')->name('index');
         Route::get('/create', 'Dashboard\FormController@showCreateFormPage')->name('create');
     });
 });

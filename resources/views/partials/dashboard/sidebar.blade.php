@@ -16,7 +16,7 @@
                 <ul class="nav child_menu">
                     {{--TODO change links--}}
                     <li><a href="{{ route('dashboard.forms.create') }}">Добавить новый</a></li>
-                    <li><a href="#">Список опросов</a></li>
+                    <li><a href="{{ route('dashboard.forms.index') }}">Список опросов</a></li>
                     <li><a href="#">Готовые шаблоны</a></li>
                 </ul>
             </li>
