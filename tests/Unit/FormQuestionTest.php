@@ -81,7 +81,7 @@ class FormQuestionTest extends TestCase
 
         $this->assertEquals('Sample Form Question Title 3', $actualFormQuestion->getTitle());
         $this->assertTrue($actualFormQuestion->isRequired());
-        $this->assertEquals($form->id, $actualFormQuestion->form_id);
+        $this->assertEquals($form->id, $actualFormQuestion->form->id);
         $this->assertEquals($answerType->id, $actualFormQuestion->answerType->id);
     }
 }
