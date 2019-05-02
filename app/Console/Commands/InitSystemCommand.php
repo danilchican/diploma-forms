@@ -78,7 +78,15 @@ class InitSystemCommand extends Command
         if ($needImportSampleData) {
             $this->info('Starting import sample data...');
 
-            // add sample data if needed
+            $exitGenerateTestFormsSeedCommandCode = Artisan::call('db:seed', [
+                '--class' => 'GenerateTestFormsSeeder',
+            ]);
+            
+            if ($exitGenerateTestFormsSeedCommandCode !== 0) {
+                $this->error('Error during generation test forms. Error code: '
+                    . $exitGenerateTestFormsSeedCommandCode);
+                return;
+            }
 
             $this->info('Import of sample data successfully finished.');
         }
