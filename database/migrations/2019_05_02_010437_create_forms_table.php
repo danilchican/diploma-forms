@@ -16,7 +16,7 @@ class CreateFormsTable extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('author_id')->after('id')->nullable();
+            $table->unsignedInteger('author_id')->nullable();
             $table->foreign('author_id')->references('id')->on('users');
 
             $table->string('title');
