@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Models\AnswerType;
 use App\Models\Form;
 use App\Models\FormQuestion;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,11 +14,8 @@ class FormQuestionTest extends TestCase
 
     public function test_can_create_form_question()
     {
-        $role = factory(\App\Models\Role::class)->create();
-        $user = factory(User::class)->create(['role_id' => $role->id]);
         $answerType = factory(AnswerType::class)->create();
-
-        $form = factory(Form::class)->create(['author_id' => $user->id]);
+        $form = factory(Form::class)->create();
 
         FormQuestion::create([
             'title'          => 'Sample Form Question Title',
@@ -38,11 +34,8 @@ class FormQuestionTest extends TestCase
 
     public function test_form_question_should_have_an_answer_type()
     {
-        $role = factory(\App\Models\Role::class)->create();
-        $user = factory(User::class)->create(['role_id' => $role->id]);
         $answerType = factory(AnswerType::class)->create();
-
-        $form = factory(Form::class)->create(['author_id' => $user->id]);
+        $form = factory(Form::class)->create();
 
         $formQuestion = new FormQuestion([
             'title'       => 'Sample Form Question Title 2',
@@ -63,11 +56,8 @@ class FormQuestionTest extends TestCase
 
     public function test_form_question_should_have_a_form()
     {
-        $role = factory(\App\Models\Role::class)->create();
-        $user = factory(User::class)->create(['role_id' => $role->id]);
         $answerType = factory(AnswerType::class)->create();
-
-        $form = factory(Form::class)->create(['author_id' => $user->id]);
+        $form = factory(Form::class)->create();
 
         $formQuestion = new FormQuestion([
             'title'          => 'Sample Form Question Title 3',
