@@ -24,15 +24,15 @@ class CreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'                   => 'required|min:3|max:255',
-            'description'             => 'nullable|min:3|max:1000',
-            'questions'               => 'required|array|min:1',
-            'questions.*'             => 'array',
-            'questions.*.title'       => 'required|min:3|max:255',
-            'questions.*.answer_type' => 'required|exists:answer_types,type',
-            'questions.*.is_required' => 'required|boolean',
-            'questions.*.answers'     => 'required_if:questions.*.answer_type,radio,checkbox,select|array',
-            'questions.*.answers.*'   => 'required|min:1|max:255',
+            'title'                          => 'required|min:3|max:255',
+            'description'                    => 'nullable|min:3|max:1000',
+            'questions'                      => 'required|array|min:1',
+            'questions.*'                    => 'array',
+            'questions.*.title'              => 'required|min:3|max:255',
+            'questions.*.selectedAnswerType' => 'required|exists:answer_types,type',
+            'questions.*.is_required'        => 'required|boolean',
+            'questions.*.answers'            => 'required_if:questions.*.answer_type,radio,checkbox,select|array',
+            'questions.*.answers.*'          => 'required|min:1|max:255',
         ];
     }
 }

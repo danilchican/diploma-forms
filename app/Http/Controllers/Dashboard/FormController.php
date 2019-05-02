@@ -22,7 +22,7 @@ class FormController extends Controller
 
     public function showFormsListPage()
     {
-        $forms = Form::with('author')->paginate();
+        $forms = Form::with('author')->latest()->paginate();
         return view('dashboard.forms.index')->with('forms', $forms);
     }
 
@@ -78,7 +78,7 @@ class FormController extends Controller
             $questionModel = null;
 
             try {
-                $answerType = AnswerType::named($question['answer_type'])->firstOrFail();
+                $answerType = AnswerType::named($question['selectedAnswerType'])->firstOrFail();
             } catch (ModelNotFoundException $e) {
                 throw new CreateFormException('Выбран неверный тип ответа.');
             }

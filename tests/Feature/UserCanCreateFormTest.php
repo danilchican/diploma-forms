@@ -81,17 +81,17 @@ class UserCanCreateFormTest extends TestCase
             'description' => 'Description of the form',
             'questions'   => [
                 [
-                    'title'       => 'First Question Title',
-                    'is_required' => '1',
-                    'answer_type' => 'checkbox',
-                    'answers'     => [
+                    'title'              => 'First Question Title',
+                    'is_required'        => '1',
+                    'selectedAnswerType' => 'checkbox',
+                    'answers'            => [
                         'Yes', 'No',
                     ],
                 ],
                 [
-                    'title'       => 'Second Question Title',
-                    'is_required' => false,
-                    'answer_type' => 'text',
+                    'title'              => 'Second Question Title',
+                    'is_required'        => false,
+                    'selectedAnswerType' => 'text',
                 ],
             ],
         ];
