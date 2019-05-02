@@ -19,7 +19,11 @@ class RoleAccessMiddleware
      */
     public function handle($request, Closure $next, ...$role)
     {
-        if (\Auth::guest() || !$request->user()->hasRole($role)) {
+        if (\Auth::guest()) {
+            return redirect()->route('login');
+        }
+
+        if (!$request->user()->hasRole($role)) {
             return abort(Response::HTTP_NOT_FOUND);
         }
 
