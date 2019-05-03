@@ -59,7 +59,7 @@ class FormController extends Controller
             return response()->json([
                 'success' => false,
                 'errors'  => [$e->getMessage()],
-            ]);
+            ], 403);
         }
     }
 
@@ -101,7 +101,7 @@ class FormController extends Controller
 
             if (array_key_exists('answers', $question) && \is_array($question['answers'])) {
                 foreach ($question['answers'] as $answer) {
-                    $questionAnswers->push(new AnswerVariant(['title' => $answer]));
+                    $questionAnswers->push(new AnswerVariant(['title' => $answer['title']]));
                 }
             }
 

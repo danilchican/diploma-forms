@@ -85,7 +85,8 @@ class UserCanCreateFormTest extends TestCase
                     'is_required'        => '1',
                     'selectedAnswerType' => 'checkbox',
                     'answers'            => [
-                        'Yes', 'No',
+                        ['title' => 'Yes'],
+                        ['title' => 'No'],
                     ],
                 ],
                 [
