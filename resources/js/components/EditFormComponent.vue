@@ -6,6 +6,7 @@
         <add-main-information :edit-title="title"
                               :edit-description="description"
                               @infoChanged="onMainInfoChanged"/>
+        <!--TODO add is_finished field-->
         <div class="row">
             <div class="col-sm-12 col-md-12 col-xs-12">
                 <div class="x_panel">
@@ -56,7 +57,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-lg-12">
-                <button @click="storeForm" type="button" class="btn btn-md btn-success pull-right">
+                <button @click="updateForm" type="button" class="btn btn-md btn-success pull-right">
                     Сохранить опрос
                 </button>
             </div>
@@ -70,7 +71,7 @@
     import AddMainInformationComponent from './FormMainInformationComponent'
 
     export default {
-        props: ['form', 'answerTypes', 'updateUrl'],
+        props: ['form', 'answerTypes', 'updateUrl', 'deleteQuestionUrl'],
 
         data() {
             return {
@@ -120,7 +121,60 @@
             },
 
             deleteQuestion(index) {
-                this.questions.splice(index, 1)
+                if (!confirm('Вопрос и его варианты ответа будут удалены. Вы уверены?')) {
+                    return;
+                }
+
+                if(this.questions[index].id === undefined) {
+                    this.questions.splice(index, 1)
+                    return;
+                }
+
+                let _self = this;
+                let _payload = {
+                    form_id: this.form.id,
+                    question_id: this.questions[index].id,
+                }
+
+                axios.post(this.deleteQuestionUrl, _payload).then(function (response) {
+                    let responseData = response.data
+                    console.log(responseData)
+
+                    if (responseData.success === true) {
+                        if (responseData.messages !== undefined) {
+                            $.each(responseData.messages, function (key, value) {
+                                toastr.success(value, 'Уведомление')
+                            });
+                        }
+
+                        _self.questions.splice(index, 1)
+                    } else {
+                        if (responseData.errors !== undefined) {
+                            // error callback
+                            $.each(responseData.errors, function (key, value) {
+                                toastr.error(value, 'Ошибка')
+                            });
+                        } else {
+                            toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка')
+                        }
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                    let data = error.response.data
+                    console.log(data)
+
+                    if (data.errors !== undefined) {
+                        $.each(data.errors, function (key, value) {
+                            toastr.error(value, 'Ошибка')
+                        });
+                    } else if (data.messages !== undefined) {
+                        $.each(data.messages, function (key, value) {
+                            toastr.error(value, 'Ошибка')
+                        });
+                    } else {
+                        toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка')
+                    }
+                })
             },
 
             editQuestion(index) {
@@ -146,7 +200,7 @@
                 }
             },
 
-            storeForm() {
+            updateForm() {
                 if (!this.isFormValid()) {
                     return;
                 }
@@ -157,7 +211,7 @@
                     questions: this.questions
                 }
 
-                axios.post(this.storeUrl, _payload).then(function (response) {
+                axios.post(this.updateUrl, _payload).then(function (response) {
                     let data = response.data
                     console.log(data)
 
