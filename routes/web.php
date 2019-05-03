@@ -36,6 +36,10 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], '
         Route::get('/{id}/edit', 'Dashboard\FormController@showEditFormPage')->name('edit');
         Route::post('/update', 'Dashboard\FormController@updateForm')->name('update');
     });
+
+    Route::group(['prefix' => '/questions', 'as' => 'questions.'], function () {
+        Route::post('/delete', 'Dashboard\FormQuestionController@deleteFormQuestion')->name('delete');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
