@@ -38,7 +38,13 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], '
     });
 
     Route::group(['prefix' => '/questions', 'as' => 'questions.'], function () {
-        Route::post('/delete', 'Dashboard\FormQuestionController@deleteFormQuestion')->name('delete');
+        Route::post('/delete', 'Dashboard\FormQuestionController@deleteFormQuestion')
+            ->name('delete');
+    });
+
+    Route::group(['prefix' => '/answer-variants', 'as' => 'answer_variants.'], function () {
+        Route::post('/delete', 'Dashboard\AnswerVariantController@deleteAnswerVariant')
+            ->name('delete');
     });
 });
 
