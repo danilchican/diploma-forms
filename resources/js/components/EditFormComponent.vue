@@ -49,6 +49,7 @@
                                               :answerTypes="answerTypes"
                                               :isQuestionEdit="isQuestionEdit"
                                               :editQuestionIndex="editQuestionIndex"
+                                              :delete-answer-variant-url="deleteAnswerVariantUrl"
                                               @questionCreated="addQuestion"
                                               @questionUpdated="updateQuestion"/>
                     </div>
@@ -71,7 +72,10 @@
     import AddMainInformationComponent from './FormMainInformationComponent'
 
     export default {
-        props: ['form', 'answerTypes', 'updateUrl', 'deleteQuestionUrl'],
+        props: [
+            'form', 'answerTypes',
+            'updateUrl', 'deleteQuestionUrl', 'deleteAnswerVariantUrl'
+        ],
 
         data() {
             return {
@@ -125,7 +129,7 @@
                     return;
                 }
 
-                if(this.questions[index].id === undefined) {
+                if (this.questions[index].id === undefined) {
                     this.questions.splice(index, 1)
                     return;
                 }

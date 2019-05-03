@@ -69,7 +69,10 @@
     import ViewAnswerVariant from './ViewAnswerVariantComponent.vue'
 
     export default {
-        props: ['index', 'answerTypes', 'isQuestionEdit', 'editQuestionIndex'],
+        props: [
+            'index', 'answerTypes', 'isQuestionEdit', 'editQuestionIndex',
+            'deleteAnswerVariantUrl'
+        ],
 
         data() {
             return {
@@ -142,13 +145,68 @@
             },
 
             deleteAnswer(index) {
-                this.question.answers.splice(index, 1)
-                this.rendered = false;
+                if (!confirm('Ответ на вопрос будет удален. Вы уверены, что хотите продолжить?')) {
+                    return;
+                }
 
-                this.$nextTick(() => {
-                    // Add the component back in
-                    this.rendered = true;
-                });
+                if (this.question.answers[index].id === undefined) {
+                    this.question.answers.splice(index, 1)
+
+                    this.rendered = false
+                    this.$nextTick(() => {
+                        // Add the component back in
+                        this.rendered = true
+                    });
+                } else {
+                    let _self = this;
+                    let _payload = {id: this.question.answers[index].id}
+
+                    axios.post(this.deleteAnswerVariantUrl, _payload).then(function (response) {
+                        let responseData = response.data
+                        console.log(responseData)
+
+                        if (responseData.success === true) {
+                            if (responseData.messages !== undefined) {
+                                $.each(responseData.messages, function (key, value) {
+                                    toastr.success(value, 'Уведомление')
+                                });
+                            }
+
+                            _self.question.answers.splice(index, 1)
+
+                            _self.rendered = false
+                            _self.$nextTick(() => {
+                                // Add the component back in
+                                _self.rendered = true
+                            });
+                        } else {
+                            if (responseData.errors !== undefined) {
+                                // error callback
+                                $.each(responseData.errors, function (key, value) {
+                                    toastr.error(value, 'Ошибка')
+                                });
+                            } else {
+                                toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка')
+                            }
+                        }
+                    }).catch(function (error) {
+                        console.log(error)
+                        let data = error.response.data
+                        console.log(data)
+
+                        if (data.errors !== undefined) {
+                            $.each(data.errors, function (key, value) {
+                                toastr.error(value, 'Ошибка')
+                            });
+                        } else if (data.messages !== undefined) {
+                            $.each(data.messages, function (key, value) {
+                                toastr.error(value, 'Ошибка')
+                            });
+                        } else {
+                            toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка')
+                        }
+                    })
+                }
             },
 
             updateAnswer(answer) {
