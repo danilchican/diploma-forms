@@ -26,6 +26,12 @@ class FormController extends Controller
         return view('dashboard.forms.index')->with('forms', $forms);
     }
 
+    public function showEditFormPage($id) {
+        $form = Form::with(['author', 'questions.answerType'])->findOrFail($id);
+        $answerTypes = AnswerType::all();
+        return view('dashboard.forms.edit')->with(compact(['form', 'answerTypes']));
+    }
+
     /**
      * Create new Form.
      *
@@ -57,6 +63,9 @@ class FormController extends Controller
         }
     }
 
+    public function updateForm() {
+        // TODO
+    }
     /**
      * Store Form Executor.
      *

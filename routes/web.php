@@ -32,6 +32,9 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], '
 
         Route::get('/create', 'Dashboard\FormController@showCreateFormPage')->name('create');
         Route::post('/create', 'Dashboard\FormController@storeForm')->name('store');
+
+        Route::get('/{id}/edit', 'Dashboard\FormController@showEditFormPage')->name('edit');
+        Route::post('/update', 'Dashboard\FormController@updateForm')->name('update');
     });
 });
 
