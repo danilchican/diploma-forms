@@ -27,7 +27,7 @@ class FormController extends Controller
     }
 
     public function showEditFormPage($id) {
-        $form = Form::with(['author', 'questions.answerType'])->findOrFail($id);
+        $form = Form::with(['author', 'questions.answerType', 'questions.answers'])->findOrFail($id);
         $answerTypes = AnswerType::all();
         return view('dashboard.forms.edit')->with(compact(['form', 'answerTypes']));
     }

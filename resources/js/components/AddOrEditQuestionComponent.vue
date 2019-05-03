@@ -37,7 +37,7 @@
                             <div v-if="question.answers.length > 0" id="question-answer-variants">
                                 <div v-for="(answer, index) in question.answers">
                                     <view-answer-variant :answerType="findAnswerTypeByType(question.selectedAnswerType)"
-                                                         :answer="answer" :index="index"
+                                                         :answer="answer.title" :index="index"
                                                          @onAnswerChanged="updateAnswer"
                                                          @onAnswerDeleted="deleteAnswer"/>
                                 </div>
@@ -117,12 +117,12 @@
             },
 
             addQuestion() {
-                this.question.answers.push('Вариант 1')
+                this.question.answers.push({title: 'Вариант 1'})
                 this.toggleAddQuestionBtn(true)
             },
 
             addAnswer() {
-                this.question.answers.push('Вариант ' + (this.question.answers.length + 1))
+                this.question.answers.push({title: 'Вариант ' + (this.question.answers.length + 1)})
             },
 
             declineAddOrEditQuestion() {
@@ -152,7 +152,7 @@
             },
 
             updateAnswer(answer) {
-                this.question.answers[answer.index] = answer.title;
+                this.question.answers[answer.index] = {title: answer.title};
             },
 
             findAnswerTypeByType(type) {
