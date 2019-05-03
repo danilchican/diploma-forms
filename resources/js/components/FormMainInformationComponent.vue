@@ -36,6 +36,11 @@
 
 <script>
     export default {
+        props: {
+            editTitle: String,
+            editDescription: String
+        },
+
         data() {
             return {
                 title: '',
@@ -49,6 +54,12 @@
             },
             description() {
                 this.$emit('infoChanged', this.getInfo());
+            },
+            editTitle() {
+                this.title = this.editTitle
+            },
+            editDescription() {
+                this.description = this.editDescription
             }
         },
 

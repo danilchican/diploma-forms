@@ -3,7 +3,7 @@
         <div class="page-title">
             <div class="title_left"><h3>Добавление нового опроса</h3></div>
         </div>
-        <add-main-information @infoChanged="onMainInfoChanged"></add-main-information>
+        <add-main-information @infoChanged="onMainInfoChanged"/>
         <div class="row">
             <div class="col-sm-12 col-md-12 col-xs-12">
                 <div class="x_panel">

@@ -7,7 +7,7 @@
         <th>Окончен</th>
         <th>Дата создания</th>
         {{--TODO добавить кол-во проголосовавших--}}
-        {{--<th>TODO Действие</th>--}}
+        <th>Действие</th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +19,11 @@
             <td>{{ $form->author === null ? 'нету' : $form->author->getName() }}</td>
             <td>{{ $form->isFinished() ? 'да' : 'нет' }}</td>
             <td><i>{{ $form->getCreatedDate()->format('m.d.Y H:i') }}</i></td>
-            {{--<td>TODO add links</td>--}}
+            <td>
+                <a href="{{ route('dashboard.forms.edit', ['id' => $form->id]) }}"
+                   class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom"
+                   data-original-title="Редактировать"><i class="fa fa-pencil" style="font-size: 14px;"></i></a>
+            </td>
         </tr>
     @endforeach
     </tbody>
