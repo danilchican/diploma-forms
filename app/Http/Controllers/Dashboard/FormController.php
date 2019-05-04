@@ -144,14 +144,14 @@ class FormController extends Controller
             $questions = collect($request->input('questions'));
 
             $newQuestions = $questions
-                ->filter(function ($question) { return $this->updateQuestionsFilter($question); })
+                ->filter(function ($question) { return $this->updateQuestionOrAnswerFilter($question); })
                 ->toArray();
             $oldQuestions = $questions
-                ->filter(function ($question) { return $this->updateQuestionsFilter($question, false); })
+                ->filter(function ($question) { return $this->updateQuestionOrAnswerFilter($question, false); })
                 ->toArray();
 
             $this->saveQuestionsAndTheirAnswerVariants($newQuestions, $form, false);
-            $this->updateExistingQuestionsAndTheirAnswerVariants($form->questions, $oldQuestions, $form);
+            $this->updateExistingQuestionsAndTheirAnswerVariants($form->questions, $oldQuestions);
         } catch (ModelNotFoundException | MassAssignmentException $e) {
             throw new UpdateFormException('Опрос, который вы пытаетесь обновить, не найден.');
         } catch (UpdateFormException $e) {
@@ -217,11 +217,10 @@ class FormController extends Controller
      *
      * @param Collection $questionModels
      * @param            $oldQuestions
-     * @param            $form
      *
      * @throws UpdateFormException
      */
-    protected function updateExistingQuestionsAndTheirAnswerVariants(Collection $questionModels, $oldQuestions, $form)
+    protected function updateExistingQuestionsAndTheirAnswerVariants(Collection $questionModels, $oldQuestions)
     {
         foreach ($oldQuestions as $question) {
             $questionModel = $questionModels->firstWhere('id', $question['id']);
@@ -232,6 +231,7 @@ class FormController extends Controller
 
             $questionModel->setTitle($question['title']);
             $questionModel->setRequired($question['is_required']);
+            $questionModel->save();
 
             try {
                 $answerType = AnswerType::named($question['selectedAnswerType'])->firstOrFail();
@@ -239,23 +239,37 @@ class FormController extends Controller
                 throw new UpdateFormException('У вопроса выбран неверный тип ответа.');
             }
 
-            $questionModel->answerType()->associate($answerType);
+            if ($answerType->getType() !== $questionModel->answerType->getType()) {
+                $questionModel->answerType()->associate($answerType);
+            }
 
             if ($answerType->isAnswersRequired()) {
-                // TODO update answers
-                /*if (array_key_exists('answers', $question) && \is_array($question['answers'])) {
-                    foreach ($question['answers'] as $answer) {
-                        $questionAnswers->push(new AnswerVariant(['title' => $answer['title']]));
+                if (array_key_exists('answers', $question) && \is_array($question['answers'])) {
+                    $allAnswers = collect($question['answers']);
+
+                    $newAnswers = $allAnswers
+                        ->filter(function ($answer) { return $this->updateQuestionOrAnswerFilter($answer); })
+                        ->toArray();
+
+                    $oldAnswers = $allAnswers
+                        ->filter(function ($answer) { return $this->updateQuestionOrAnswerFilter($answer, false); })
+                        ->toArray();
+
+                    $questionModel->answers()->saveMany($newAnswers);
+
+                    foreach ($oldAnswers as $answer) {
+                        // TODO update changed answers
+                        dd($questionModel->id, $newAnswers, $oldAnswers);
                     }
-                }*/
+                }
             } else {
                 $questionModel->answers()->delete();
             }
         }
     }
 
-    private function updateQuestionsFilter($question, $new = true)
+    private function updateQuestionOrAnswerFilter($questionOrAnswer, $new = true)
     {
-        return array_key_exists('id', $question) ^ $new;
+        return array_key_exists('id', $questionOrAnswer) ^ $new;
     }
 }
