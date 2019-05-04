@@ -82,6 +82,7 @@
                 drag: false,
                 isQuestionEdit: false,
                 editQuestionIndex: null,
+                id: null,
                 title: '',
                 description: '',
                 questions: [],
@@ -89,6 +90,7 @@
         },
 
         mounted() {
+            this.id = this.form.id
             this.title = this.form.title
             this.description = this.form.description
 
@@ -210,6 +212,7 @@
                 }
 
                 let _payload = {
+                    id: this.id,
                     title: this.title,
                     description: this.description,
                     questions: this.questions

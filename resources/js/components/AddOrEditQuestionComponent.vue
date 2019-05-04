@@ -222,6 +222,7 @@
 
                 return {
                     index: this.editQuestionIndex,
+                    id: this.question.id,
                     title: this.question.title,
                     is_required: this.question.is_required,
                     selectedAnswerType: this.question.selectedAnswerType,
