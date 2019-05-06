@@ -3,7 +3,7 @@
         <div v-if="isType('select')">
             <div class="input-prepend input-group">
                 <span class="add-on input-group-addon">{{ index + 1 }}.</span>
-                <input type="text" class="form-control" v-model="answer" placeholder="Введите вариант ответа"/>
+                <input type="text" class="form-control" v-model="answer.title" placeholder="Введите вариант ответа"/>
                 <span class="input-group-addon" v-if="index !== 0">
                     <button type="button" class="btn btn-xs btn-danger" style="margin: 0;"
                             @click="deleteAnswer">
@@ -17,7 +17,7 @@
                 <span class="add-on input-group-addon">
                     <input :type="answerType.type" disabled="disabled"/> <span>{{ index + 1 }}.</span>
                 </span>
-                <input type="text" class="form-control" v-model="innerAnswer" placeholder="Введите вариант ответа"/>
+                <input type="text" class="form-control" v-model="innerAnswer.title" placeholder="Введите вариант ответа"/>
                 <span class="input-group-addon" v-if="index !== 0">
                     <button type="button" class="btn btn-xs btn-danger" style="margin: 0;"
                             @click="deleteAnswer">
@@ -41,7 +41,16 @@
 
         watch: {
             innerAnswer() {
-                this.$emit('onAnswerChanged', {index: this.index, title: this.innerAnswer});
+                let _obj = {
+                    index: this.index,
+                    title: this.innerAnswer
+                }
+
+                if(this.innerAnswer.id !== undefined) {
+                    _obj.id = this.innerAnswer.id;
+                }
+
+                this.$emit('onAnswerChanged', _obj);
             }
         },
 

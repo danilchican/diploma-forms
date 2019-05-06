@@ -37,7 +37,7 @@
                             <div v-if="question.answers.length > 0" id="question-answer-variants">
                                 <div v-for="(answer, index) in question.answers">
                                     <view-answer-variant :answerType="findAnswerTypeByType(question.selectedAnswerType)"
-                                                         :answer="answer.title" :index="index"
+                                                         :answer="answer" :index="index"
                                                          @onAnswerChanged="updateAnswer"
                                                          @onAnswerDeleted="deleteAnswer"/>
                                 </div>

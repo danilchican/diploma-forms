@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0c0ade550ba09abcf17f20a9284e2188",
-    "content-hash": "ec8705c0af1bcef0f64ae2c3aa976dcc",
+    "hash": "df8c0833e8e26403f184aad0576a4083",
+    "content-hash": "479118c7591c37dda1b60341ccb2f4d3",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1107,6 +1107,49 @@
                 "storage"
             ],
             "time": "2019-03-30 13:22:34"
+        },
+        {
+            "name": "mavinoo/laravel-batch",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mavinoo/laravelBatch.git",
+                "reference": "e42eb9e29297b74d7b4ac598613889219b7ea6eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mavinoo/laravelBatch/zipball/e42eb9e29297b74d7b4ac598613889219b7ea6eb",
+                "reference": "e42eb9e29297b74d7b4ac598613889219b7ea6eb",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mavinoo\\LaravelBatch\\LaravelBatchServiceProvider"
+                    ],
+                    "aliases": {
+                        "Batch": "Mavinoo\\LaravelBatch\\LaravelBatchFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mavinoo\\LaravelBatch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammad Ghanbari",
+                    "email": "wordpress.iran@gmail.com"
+                }
+            ],
+            "description": "Insert and update batch (bulk) in laravel",
+            "time": "2019-04-14 05:31:07"
         },
         {
             "name": "monolog/monolog",
@@ -6065,7 +6108,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "mavinoo/laravel-batch": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
