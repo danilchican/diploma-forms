@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Mavinoo\LaravelBatch\LaravelBatchFacade as Batch;
 
 class FormController extends Controller
 {
@@ -144,10 +145,10 @@ class FormController extends Controller
             $questions = collect($request->input('questions'));
 
             $newQuestions = $questions
-                ->filter(function ($question) { return $this->updateQuestionOrAnswerFilter($question); })
+                ->filter(function ($question) { return !array_key_exists('id', $question); })
                 ->toArray();
             $oldQuestions = $questions
-                ->filter(function ($question) { return $this->updateQuestionOrAnswerFilter($question, false); })
+                ->filter(function ($question) { return array_key_exists('id', $question); })
                 ->toArray();
 
             $this->saveQuestionsAndTheirAnswerVariants($newQuestions, $form, false);
@@ -248,28 +249,19 @@ class FormController extends Controller
                     $allAnswers = collect($question['answers']);
 
                     $newAnswers = $allAnswers
-                        ->filter(function ($answer) { return $this->updateQuestionOrAnswerFilter($answer); })
-                        ->toArray();
+                        ->filter(function ($answer) { return !array_key_exists('id', $answer); })
+                        ->map(function ($answer) { return new AnswerVariant($answer); });
 
                     $oldAnswers = $allAnswers
-                        ->filter(function ($answer) { return $this->updateQuestionOrAnswerFilter($answer, false); })
+                        ->filter(function ($answer) { return array_key_exists('id', $answer); })
                         ->toArray();
 
+                    Batch::update(new AnswerVariant, $oldAnswers, 'id');
                     $questionModel->answers()->saveMany($newAnswers);
-
-                    foreach ($oldAnswers as $answer) {
-                        // TODO update changed answers
-                        dd($questionModel->id, $newAnswers, $oldAnswers);
-                    }
                 }
             } else {
                 $questionModel->answers()->delete();
             }
         }
-    }
-
-    private function updateQuestionOrAnswerFilter($questionOrAnswer, $new = true)
-    {
-        return array_key_exists('id', $questionOrAnswer) ^ $new;
     }
 }

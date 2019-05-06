@@ -1833,7 +1833,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['index', 'answerTypes', 'isQuestionEdit', 'editQuestionIndex'],
+  props: ['index', 'answerTypes', 'isQuestionEdit', 'editQuestionIndex', 'deleteAnswerVariantUrl'],
   data: function data() {
     return {
       rendered: true,
@@ -1874,11 +1874,15 @@ __webpack_require__.r(__webpack_exports__);
       this.isAddQuestionBtnClicked = value;
     },
     addQuestion: function addQuestion() {
-      this.question.answers.push('Вариант 1');
+      this.question.answers.push({
+        title: 'Вариант 1'
+      });
       this.toggleAddQuestionBtn(true);
     },
     addAnswer: function addAnswer() {
-      this.question.answers.push('Вариант ' + (this.question.answers.length + 1));
+      this.question.answers.push({
+        title: 'Вариант ' + (this.question.answers.length + 1)
+      });
     },
     declineAddOrEditQuestion: function declineAddOrEditQuestion() {
       this.cleanQuestionForm();
@@ -1897,15 +1901,75 @@ __webpack_require__.r(__webpack_exports__);
     deleteAnswer: function deleteAnswer(index) {
       var _this = this;
 
-      this.question.answers.splice(index, 1);
-      this.rendered = false;
-      this.$nextTick(function () {
-        // Add the component back in
-        _this.rendered = true;
-      });
+      if (!confirm('Ответ на вопрос будет удален. Вы уверены, что хотите продолжить?')) {
+        return;
+      }
+
+      if (this.question.answers[index].id === undefined) {
+        this.question.answers.splice(index, 1);
+        this.rendered = false;
+        this.$nextTick(function () {
+          // Add the component back in
+          _this.rendered = true;
+        });
+      } else {
+        var _self = this;
+
+        var _payload = {
+          id: this.question.answers[index].id
+        };
+        axios.post(this.deleteAnswerVariantUrl, _payload).then(function (response) {
+          var responseData = response.data;
+          console.log(responseData);
+
+          if (responseData.success === true) {
+            if (responseData.messages !== undefined) {
+              $.each(responseData.messages, function (key, value) {
+                toastr.success(value, 'Уведомление');
+              });
+            }
+
+            _self.question.answers.splice(index, 1);
+
+            _self.rendered = false;
+
+            _self.$nextTick(function () {
+              // Add the component back in
+              _self.rendered = true;
+            });
+          } else {
+            if (responseData.errors !== undefined) {
+              // error callback
+              $.each(responseData.errors, function (key, value) {
+                toastr.error(value, 'Ошибка');
+              });
+            } else {
+              toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка');
+            }
+          }
+        })["catch"](function (error) {
+          console.log(error);
+          var data = error.response.data;
+          console.log(data);
+
+          if (data.errors !== undefined) {
+            $.each(data.errors, function (key, value) {
+              toastr.error(value, 'Ошибка');
+            });
+          } else if (data.messages !== undefined) {
+            $.each(data.messages, function (key, value) {
+              toastr.error(value, 'Ошибка');
+            });
+          } else {
+            toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка');
+          }
+        });
+      }
     },
     updateAnswer: function updateAnswer(answer) {
-      this.question.answers[answer.index] = answer.title;
+      this.question.answers[answer.index] = {
+        title: answer.title
+      };
     },
     findAnswerTypeByType: function findAnswerTypeByType(type) {
       return this.answerTypes.filter(function (v) {
@@ -1916,6 +1980,7 @@ __webpack_require__.r(__webpack_exports__);
       var _answersRequired = this.findAnswerTypeByType(this.question.selectedAnswerType).answers_required;
       return {
         index: this.editQuestionIndex,
+        id: this.question.id,
         title: this.question.title,
         is_required: this.question.is_required,
         selectedAnswerType: this.question.selectedAnswerType,
@@ -2133,6 +2198,277 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditFormComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EditFormComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _AddOrEditQuestionComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddOrEditQuestionComponent */ "./resources/js/components/AddOrEditQuestionComponent.vue");
+/* harmony import */ var _FormMainInformationComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormMainInformationComponent */ "./resources/js/components/FormMainInformationComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['form', 'answerTypes', 'updateUrl', 'deleteQuestionUrl', 'deleteAnswerVariantUrl'],
+  data: function data() {
+    return {
+      drag: false,
+      isQuestionEdit: false,
+      editQuestionIndex: null,
+      id: null,
+      title: '',
+      description: '',
+      questions: []
+    };
+  },
+  mounted: function mounted() {
+    this.id = this.form.id;
+    this.title = this.form.title;
+    this.description = this.form.description;
+    this.loadFormQuestions();
+  },
+  computed: {
+    editTitle: function editTitle() {
+      return 'Редактирование опроса #' + this.form.id;
+    },
+    dragOptions: function dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost"
+      };
+    }
+  },
+  methods: {
+    onMainInfoChanged: function onMainInfoChanged(info) {
+      this.title = info.title;
+      this.description = info.description;
+    },
+    addQuestion: function addQuestion(question) {
+      this.questions.push(question);
+    },
+    updateQuestion: function updateQuestion(question) {
+      this.questions[question.index] = question;
+    },
+    deleteQuestion: function deleteQuestion(index) {
+      if (!confirm('Вопрос и его варианты ответа будут удалены. Вы уверены?')) {
+        return;
+      }
+
+      if (this.questions[index].id === undefined) {
+        this.questions.splice(index, 1);
+        return;
+      }
+
+      var _self = this;
+
+      var _payload = {
+        form_id: this.form.id,
+        question_id: this.questions[index].id
+      };
+      axios.post(this.deleteQuestionUrl, _payload).then(function (response) {
+        var responseData = response.data;
+        console.log(responseData);
+
+        if (responseData.success === true) {
+          if (responseData.messages !== undefined) {
+            $.each(responseData.messages, function (key, value) {
+              toastr.success(value, 'Уведомление');
+            });
+          }
+
+          _self.questions.splice(index, 1);
+        } else {
+          if (responseData.errors !== undefined) {
+            // error callback
+            $.each(responseData.errors, function (key, value) {
+              toastr.error(value, 'Ошибка');
+            });
+          } else {
+            toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка');
+          }
+        }
+      })["catch"](function (error) {
+        console.log(error);
+        var data = error.response.data;
+        console.log(data);
+
+        if (data.errors !== undefined) {
+          $.each(data.errors, function (key, value) {
+            toastr.error(value, 'Ошибка');
+          });
+        } else if (data.messages !== undefined) {
+          $.each(data.messages, function (key, value) {
+            toastr.error(value, 'Ошибка');
+          });
+        } else {
+          toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка');
+        }
+      });
+    },
+    editQuestion: function editQuestion(index) {
+      this.editQuestionIndex = index;
+      this.isQuestionEdit = true;
+    },
+    loadFormQuestions: function loadFormQuestions() {
+      var _questions = this.form.questions;
+
+      for (var i = 0; i < _questions.length; i++) {
+        var _question = _questions[i];
+        this.questions.push({
+          id: _question.id,
+          title: _question.title,
+          is_required: _question.is_required,
+          selectedAnswerType: _question.answer_type.type,
+          answers: $.map(_question.answers, function (answer, index) {
+            return {
+              id: answer.id,
+              title: answer.title
+            };
+          })
+        });
+      }
+    },
+    updateForm: function updateForm() {
+      if (!this.isFormValid()) {
+        return;
+      }
+
+      var _payload = {
+        id: this.id,
+        title: this.title,
+        description: this.description,
+        questions: this.questions
+      };
+      axios.post(this.updateUrl, _payload).then(function (response) {
+        var data = response.data;
+        console.log(data);
+
+        if (data.success === true) {
+          if (data.messages !== undefined) {
+            $.each(data.messages, function (key, value) {
+              toastr.success(value, 'Уведомление');
+            });
+          }
+
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        } else {
+          if (data.errors !== undefined) {
+            // error callback
+            $.each(data.errors, function (key, value) {
+              toastr.error(value, 'Ошибка');
+            });
+          } else {
+            toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка');
+          }
+        }
+      })["catch"](function (error) {
+        var data = error.response.data;
+        console.log(data);
+
+        if (data.errors !== undefined) {
+          $.each(data.errors, function (key, value) {
+            toastr.error(value, 'Ошибка');
+          });
+        } else if (data.messages !== undefined) {
+          $.each(data.messages, function (key, value) {
+            toastr.error(value, 'Ошибка');
+          });
+        } else {
+          toastr.error('Что-то пошло не так. Обратитесь к администратору.', 'Ошибка');
+        }
+      });
+    },
+    isFormValid: function isFormValid() {
+      return true; // TODO
+    }
+  },
+  components: {
+    'draggable': vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a,
+    'add-or-edit-question': _AddOrEditQuestionComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    'add-main-information': _FormMainInformationComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormMainInformationComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FormMainInformationComponent.vue?vue&type=script&lang=js& ***!
@@ -2179,6 +2515,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    editTitle: String,
+    editDescription: String
+  },
   data: function data() {
     return {
       title: '',
@@ -2191,6 +2531,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     description: function description() {
       this.$emit('infoChanged', this.getInfo());
+    },
+    editTitle: function editTitle() {
+      this.title = this.editTitle;
+    },
+    editDescription: function editDescription() {
+      this.description = this.editDescription;
     }
   },
   methods: {
@@ -2254,10 +2600,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     innerAnswer: function innerAnswer() {
-      this.$emit('onAnswerChanged', {
+      var _obj = {
         index: this.index,
         title: this.innerAnswer
-      });
+      };
+
+      if (this.innerAnswer.id !== undefined) {
+        _obj.id = this.innerAnswer.id;
+      }
+
+      this.$emit('onAnswerChanged', _obj);
     }
   },
   methods: {
@@ -36749,6 +37101,243 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditFormComponent.vue?vue&type=template&id=653d8c54&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EditFormComponent.vue?vue&type=template&id=653d8c54& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "page-title" }, [
+        _c("div", { staticClass: "title_left" }, [
+          _c("h3", [_vm._v(_vm._s(_vm.editTitle))])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("add-main-information", {
+        attrs: { "edit-title": _vm.title, "edit-description": _vm.description },
+        on: { infoChanged: _vm.onMainInfoChanged }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-12 col-md-12 col-xs-12" }, [
+          _c("div", { staticClass: "x_panel" }, [
+            _c("div", { staticClass: "x_title" }, [
+              _c("h2", [
+                _vm._v("Вопросы (" + _vm._s(_vm.questions.length) + ") "),
+                _c("span", { staticStyle: { color: "#d40707" } }, [_vm._v("*")])
+              ]),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "x_content" },
+              [
+                _vm.questions.length > 0
+                  ? _c(
+                      "div",
+                      { attrs: { id: "questions-list" } },
+                      [
+                        _c(
+                          "draggable",
+                          _vm._b(
+                            {
+                              attrs: {
+                                handle: ".handle",
+                                options: {
+                                  group: {
+                                    name: "questions",
+                                    pull: false,
+                                    put: false
+                                  }
+                                }
+                              },
+                              on: {
+                                start: function($event) {
+                                  _vm.drag = true
+                                },
+                                end: function($event) {
+                                  _vm.drag = false
+                                }
+                              },
+                              model: {
+                                value: _vm.questions,
+                                callback: function($$v) {
+                                  _vm.questions = $$v
+                                },
+                                expression: "questions"
+                              }
+                            },
+                            "draggable",
+                            _vm.dragOptions,
+                            false
+                          ),
+                          [
+                            _c(
+                              "transition-group",
+                              {
+                                attrs: {
+                                  type: "transition",
+                                  name: !_vm.drag ? "flip-questions" : null
+                                }
+                              },
+                              _vm._l(_vm.questions, function(question, index) {
+                                return _c(
+                                  "div",
+                                  {
+                                    key: question.title,
+                                    staticClass: "question-item"
+                                  },
+                                  [
+                                    _c("span", { staticClass: "handle" }, [
+                                      _c("i", { staticClass: "fa fa-sort" })
+                                    ]),
+                                    _vm._v(
+                                      " \n                                    " +
+                                        _vm._s(index + 1) +
+                                        ". " +
+                                        _vm._s(question.title) +
+                                        "\n                                    "
+                                    ),
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "pull-right",
+                                        staticStyle: { display: "flex" }
+                                      },
+                                      [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-xs btn-primary",
+                                            attrs: {
+                                              type: "button",
+                                              disabled: _vm.isQuestionEdit
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.editQuestion(index)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-pencil"
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-xs btn-danger",
+                                            attrs: {
+                                              type: "button",
+                                              disabled: _vm.isQuestionEdit
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deleteQuestion(index)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-close"
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "clearfix" }),
+                _vm._v(" "),
+                _c("add-or-edit-question", {
+                  attrs: {
+                    index: _vm.questions.length + 1,
+                    answerTypes: _vm.answerTypes,
+                    isQuestionEdit: _vm.isQuestionEdit,
+                    editQuestionIndex: _vm.editQuestionIndex,
+                    "delete-answer-variant-url": _vm.deleteAnswerVariantUrl
+                  },
+                  on: {
+                    questionCreated: _vm.addQuestion,
+                    questionUpdated: _vm.updateQuestion
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12 col-sm-12 col-lg-12" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-md btn-success pull-right",
+              attrs: { type: "button" },
+              on: { click: _vm.updateForm }
+            },
+            [_vm._v("\n                Сохранить опрос\n            ")]
+          )
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
+      _c("li", [
+        _c("a", { staticClass: "collapse-link" }, [
+          _c("i", { staticClass: "fa fa-chevron-up" })
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormMainInformationComponent.vue?vue&type=template&id=029a2859&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FormMainInformationComponent.vue?vue&type=template&id=029a2859& ***!
@@ -36856,7 +37445,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "x_title" }, [
-      _c("h2", [_vm._v("Основная информация об опросе")]),
+      _c("h2", [_vm._v("Основная информация")]),
       _vm._v(" "),
       _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
         _c("li", [
@@ -36913,19 +37502,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.answer,
-                  expression: "answer"
+                  value: _vm.answer.title,
+                  expression: "answer.title"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", placeholder: "Введите вариант ответа" },
-              domProps: { value: _vm.answer },
+              domProps: { value: _vm.answer.title },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.answer = $event.target.value
+                  _vm.$set(_vm.answer, "title", $event.target.value)
                 }
               }
             }),
@@ -36961,19 +37550,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.innerAnswer,
-                  expression: "innerAnswer"
+                  value: _vm.innerAnswer.title,
+                  expression: "innerAnswer.title"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", placeholder: "Введите вариант ответа" },
-              domProps: { value: _vm.innerAnswer },
+              domProps: { value: _vm.innerAnswer.title },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.innerAnswer = $event.target.value
+                  _vm.$set(_vm.innerAnswer, "title", $event.target.value)
                 }
               }
             }),
@@ -49303,6 +49892,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/EditFormComponent.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/EditFormComponent.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditFormComponent_vue_vue_type_template_id_653d8c54___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditFormComponent.vue?vue&type=template&id=653d8c54& */ "./resources/js/components/EditFormComponent.vue?vue&type=template&id=653d8c54&");
+/* harmony import */ var _EditFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditFormComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/EditFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditFormComponent_vue_vue_type_template_id_653d8c54___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditFormComponent_vue_vue_type_template_id_653d8c54___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EditFormComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/EditFormComponent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/EditFormComponent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./EditFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/EditFormComponent.vue?vue&type=template&id=653d8c54&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/EditFormComponent.vue?vue&type=template&id=653d8c54& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditFormComponent_vue_vue_type_template_id_653d8c54___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./EditFormComponent.vue?vue&type=template&id=653d8c54& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditFormComponent.vue?vue&type=template&id=653d8c54&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditFormComponent_vue_vue_type_template_id_653d8c54___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditFormComponent_vue_vue_type_template_id_653d8c54___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/FormMainInformationComponent.vue":
 /*!******************************************************************!*\
   !*** ./resources/js/components/FormMainInformationComponent.vue ***!
@@ -49713,6 +50371,7 @@ window.toastr.options = {
   "extendedTimeOut": 5000
 };
 Vue.component('create-form', __webpack_require__(/*! ./components/CreateFormComponent.vue */ "./resources/js/components/CreateFormComponent.vue")["default"]);
+Vue.component('edit-form', __webpack_require__(/*! ./components/EditFormComponent.vue */ "./resources/js/components/EditFormComponent.vue")["default"]);
 var app = new Vue({
   el: '#app'
 });
