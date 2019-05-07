@@ -8,7 +8,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('index') }}">{{ config('app.name') }}</a>
+            <a class="navbar-brand" style="padding: 9px" href="{{ route('index') }}">
+                <img width="200" src="{{ asset('/images/logo.jpg') }}" alt="Кафедра менеджмента БГУИР">
+            </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

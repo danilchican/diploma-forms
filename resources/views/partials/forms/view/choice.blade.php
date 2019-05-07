@@ -18,8 +18,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <label for="answer-{{ $answer->id }}">
                     <input id="answer-{{ $answer->id }}" type="{{ $question->answerType->type }}"
-                           name="answers[{{ $question->id }}][]"
-                           @if($question->isRequired()) required="required" @endif> {{ $answer->getTitle() }}
+                           value="{{ $answer->id }}" name="answers[{{ $question->id }}][]"> {{ $answer->getTitle() }}
                 </label>
             </div>
         </div>

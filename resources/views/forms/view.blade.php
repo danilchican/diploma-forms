@@ -5,9 +5,14 @@
     <p>Ответов: 0 {{--TODO add votes counts--}}</p>
     <p>{{ $form->getDescription() }}</p>
     <hr>
-    {{--TODO add action--}}
     <div class="col-md-8 col-md-offset-2">
-        <form action="#" method="POST" id="add-form-vote">
+        @include('partials.dashboard.messages')
+
+        <form action="{{ route('forms.submit') }}" method="POST" id="add-form-vote">
+            <input type="hidden" name="form-id" value="{{ $form->id }}">
+
+            {{ csrf_field() }}
+
             @foreach($questions as $question)
                 <div class="col-md-12">
                     <div class="panel panel-default">
