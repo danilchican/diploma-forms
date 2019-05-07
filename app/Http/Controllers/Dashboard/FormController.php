@@ -232,7 +232,6 @@ class FormController extends Controller
 
             $questionModel->setTitle($question['title']);
             $questionModel->setRequired($question['is_required']);
-            $questionModel->save();
 
             try {
                 $answerType = AnswerType::named($question['selectedAnswerType'])->firstOrFail();
@@ -240,9 +239,8 @@ class FormController extends Controller
                 throw new UpdateFormException('У вопроса выбран неверный тип ответа.');
             }
 
-            if ($answerType->getType() !== $questionModel->answerType->getType()) {
-                $questionModel->answerType()->associate($answerType);
-            }
+            $questionModel->answerType()->associate($answerType);
+            $questionModel->save();
 
             if ($answerType->isAnswersRequired()) {
                 if (array_key_exists('answers', $question) && \is_array($question['answers'])) {
