@@ -4,6 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\SubmittedForm
+ *
+ * @property-read \App\Models\Form           $form
+ * @property int                             $id
+ * @property int                             $form_id
+ * @property string                          $author_ip_address
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm whereAuthorIpAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm whereFormId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class SubmittedForm extends Model
 {
     /**

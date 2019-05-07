@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereIsPublished($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form opened()
  * @mixin \Eloquent
  */
 class Form extends Model
@@ -208,5 +209,15 @@ class Form extends Model
     public function questions()
     {
         return $this->hasMany(FormQuestion::class);
+    }
+
+    /**
+     * Get submissions for a form.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function submissions()
+    {
+        return $this->hasMany(SubmittedForm::class);
     }
 }

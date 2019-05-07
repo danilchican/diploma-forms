@@ -15,7 +15,10 @@ class CreateSubmittedFormsTable extends Migration
     {
         Schema::create('submitted_forms', function (Blueprint $table) {
             $table->increments('id');
+
             $table->unsignedInteger('form_id');
+            $table->foreign('form_id')->references('id')->on('forms');
+
             $table->string('author_ip_address', 50);
             $table->timestamps();
         });
