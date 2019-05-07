@@ -1,9 +1,7 @@
-// Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-// Variables
 @import 'variables';
-// Bootstrap
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~font-awesome/scss/font-awesome';
 
 .navbar-laravel {
   background-color: #fff;
@@ -12,4 +10,8 @@
 
 #ui-search-form {
   padding: 8px 0;
+}
+
+hr {
+  margin: 10px 0;
 }
