@@ -1,5 +1,5 @@
 {{--TODO rename--}}
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -19,6 +19,15 @@
 
 <div class="container">
     @yield('content')
+</div>
+<div class="container">
+    <hr>
+    <footer>
+        <p>
+            <span>&copy; Кафедра менеджмента, 2019, <a href="mailto:kafman@bsuir.by">kafman@bsuir.by</a></span>
+            <span class="pull-right"><i>+375(17)293-86-46, +375(17)293-88-26</i></span>
+        </p>
+    </footer>
 </div>
 
 <!-- Scripts -->
