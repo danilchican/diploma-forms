@@ -6,6 +6,6 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>{{ config('app.name') }}{{ isset($subtitle) ? ' | ' . $subtitle : '' }}</title>
+<title>{{ config('app.name') }}{{ isset($subtitle) ? ' - ' . $subtitle : '' }}</title>
 
 <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
