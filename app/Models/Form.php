@@ -154,6 +154,19 @@ class Form extends Model
     }
 
     /**
+     * @param QueryBuilder $query
+     * @param string       $phrase
+     *
+     * @return mixed
+     */
+    public static function scopeSearch($query, $phrase)
+    {
+        return $query->where('title', 'like', '%' . $phrase . '%')
+            ->orWhere('description', 'like', '%' . $phrase . '%');
+    }
+
+
+    /**
      * Author of the Form.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

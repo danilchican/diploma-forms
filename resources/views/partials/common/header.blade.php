@@ -18,8 +18,7 @@
             </ul>
             <div class="col-md-6 pull-right">
                 <div class="row">
-                    {{--TODO action--}}
-                    <form action="#" id="ui-search-form">
+                    <form action="{{ route('search') }}" id="ui-search-form">
                         <div class="input-group">
                             <input type="text" class="form-control" name="q"
                                    placeholder="Введите название опроса для поиска...">
