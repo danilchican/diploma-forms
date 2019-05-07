@@ -14,7 +14,9 @@
                             <div class="panel panel-primary" style="min-height: 230px; position: relative">
                                 <div class="panel-heading">
                                     <h3 class="panel-title" style="font-size:14px">
-                                        <a href="">{{ $form->getTitle() }}</a>
+                                        <a href="{{ route('forms.view', ['id' => $form->id]) }}">
+                                            {{ $form->getTitle() }}
+                                        </a>
                                     </h3>
                                 </div>
                                 <div class="panel-body">

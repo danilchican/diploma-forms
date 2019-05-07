@@ -12,7 +12,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ route('index') }}">Главная</a></li>
+                <li><a href="{{ route('index') }}">Главная</a></li>
                 <li><a href="#">О кафедре</a></li>
                 <li><a href="#">Контакты</a></li>
             </ul>

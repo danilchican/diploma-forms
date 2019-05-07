@@ -23,6 +23,10 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
+Route::group(['prefix' => '/forms', 'as' => 'forms.'], function () {
+    Route::get('/{id}/view', 'FormController@viewFormPage')->name('view');
+});
+
 /* Dashboard Routes */
 Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], 'as' => 'dashboard.'], function () {
     Route::get('/', 'Dashboard\DashboardController')->name('home');

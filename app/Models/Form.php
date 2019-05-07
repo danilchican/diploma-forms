@@ -9,17 +9,29 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Form
  *
- * @property-read \App\Models\User           $author
- * @property int                             $id
- * @property string                          $title
- * @property string|null                     $description
- * @property boolean                         $is_finished
- * @property boolean                         $is_published
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User                                                    $author
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FormQuestion[] $questions
+ * @property int                                                                      $id
+ * @property int|null                                                                 $author_id
+ * @property string                                                                   $title
+ * @property string|null                                                              $description
+ * @property boolean                                                                  $is_finished
+ * @property boolean                                                                  $is_published
+ * @property \Illuminate\Support\Carbon|null                                          $created_at
+ * @property \Illuminate\Support\Carbon|null                                          $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form published()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form search($phrase)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereAuthorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereIsFinished($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereIsPublished($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Form extends Model

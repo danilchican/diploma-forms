@@ -9,6 +9,11 @@ use UnexpectedValueException;
 /**
  * App\Models\User
  *
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[]
+ *                $notifications
+ * @property-read \App\Models\Role
+ *                    $role
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Form[] $forms
  * @property int
  *               $id
  * @property string
@@ -27,10 +32,6 @@ use UnexpectedValueException;
  *               $created_at
  * @property \Illuminate\Support\Carbon|null
  *               $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[]
- *                $notifications
- * @property-read \App\Models\Role
- *                    $role
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()

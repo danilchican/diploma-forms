@@ -4,6 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\AnswerVariant
+ *
+ * @property int                           $id
+ * @property string                        $title
+ * @property int                           $form_question_id
+ * @property-read \App\Models\FormQuestion $formQuestion
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AnswerVariant newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AnswerVariant newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AnswerVariant query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AnswerVariant whereFormQuestionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AnswerVariant whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AnswerVariant whereTitle($value)
+ * @mixin \Eloquent
+ */
 class AnswerVariant extends Model
 {
     /**

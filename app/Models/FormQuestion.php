@@ -7,16 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\FormQuestion
  *
- * @property-read \App\Models\AnswerType $answerType
- * @property-read \App\Models\Form       $form
- * @property int                         $id
- * @property string                      $title
- * @property int                         $form_id
- * @property int                         $answer_type_id
- * @property boolean                     $is_required
+ * @property-read \App\Models\AnswerType                                               $answerType
+ * @property-read \App\Models\Form                                                     $form
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AnswerVariant[] $answers
+ * @property int                                                                       $id
+ * @property string                                                                    $title
+ * @property int                                                                       $form_id
+ * @property int                                                                       $answer_type_id
+ * @property boolean                                                                   $is_required
+ * @property string|null                                                               $created_at
+ * @property string|null                                                               $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion whereAnswerTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion whereFormId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion whereIsRequired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormQuestion whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class FormQuestion extends Model
