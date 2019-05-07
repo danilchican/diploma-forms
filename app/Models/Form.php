@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $title
  * @property string|null                     $description
  * @property boolean                         $is_finished
+ * @property boolean                         $is_published
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form newModelQuery()
@@ -28,7 +30,8 @@ class Form extends Model
      * @var array
      */
     protected $fillable = [
-        'author_id', 'title', 'description', 'is_finished',
+        'author_id', 'title', 'description',
+        'is_finished', 'is_published',
     ];
 
     /**
@@ -36,7 +39,10 @@ class Form extends Model
      *
      * @var array
      */
-    protected $casts = ['is_finished' => 'boolean'];
+    protected $casts = [
+        'is_finished'  => 'boolean',
+        'is_published' => 'boolean',
+    ];
 
     /**
      * The number of models to return for pagination.
@@ -44,6 +50,7 @@ class Form extends Model
      * @var int
      */
     protected $perPage = 10;
+
     /**
      * Get title of the form.
      *
@@ -105,6 +112,26 @@ class Form extends Model
     }
 
     /**
+     * Check if form is published.
+     *
+     * @return boolean
+     */
+    public function isPublished()
+    {
+        return $this->is_published;
+    }
+
+    /**
+     * Set published flag for the form.
+     *
+     * @param boolean $value
+     */
+    public function setPublished($value)
+    {
+        $this->is_published = $value;
+    }
+
+    /**
      * Get created date of the form.
      *
      * @return Carbon
@@ -112,6 +139,18 @@ class Form extends Model
     public function getCreatedDate()
     {
         return $this->created_at;
+    }
+
+    /**
+     * Select published forms only.
+     *
+     * @param QueryBuilder $query
+     *
+     * @return mixed
+     */
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
     }
 
     /**

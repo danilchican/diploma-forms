@@ -22,6 +22,7 @@ class CreateFormsTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->boolean('is_finished')->default(0);
+            $table->boolean('is_published')->default(0);
 
             $table->timestamps();
         });

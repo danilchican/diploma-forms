@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form;
+
 class HomeController extends Controller
 {
     /**
@@ -11,6 +13,6 @@ class HomeController extends Controller
      */
     public function showHomePage()
     {
-        return view('welcome');
+        return view('welcome')->with('forms', Form::published()->paginate());
     }
 }
