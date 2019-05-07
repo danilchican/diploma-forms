@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', 'HomeController@showHomePage')->name('index');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -47,5 +45,3 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], '
             ->name('delete');
     });
 });
-
-Route::get('/home', 'HomeController@index')->name('home');
