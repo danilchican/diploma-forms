@@ -23,10 +23,15 @@
 <div class="container">
     <hr>
     <footer>
-        <p>
-            <span>&copy; Кафедра менеджмента, 2019, <a href="mailto:kafman@bsuir.by">kafman@bsuir.by</a></span>
-            <span class="pull-right"><i>+375(17)293-86-46, +375(17)293-88-26</i></span>
-        </p>
+        <ul id="footer-blocks">
+            <li class="col-md-4"><img width="250" src="{{ asset('/images/logo.jpg') }}" alt="Кафедра менеджмента БГУИР"/></li>
+            <li class="col-md-4"><p style="padding-top: 10px;"><i>+375(17)293-86-46, +375(17)293-88-26</i></p></li>
+            <li class="col-md-4">
+                <span style="padding-top: 10px" class="pull-right">
+                    &copy; Кафедра менеджмента, 2019, <a href="mailto:kafman@bsuir.by">kafman@bsuir.by</a>
+                </span>
+            </li>
+        </ul>
     </footer>
 </div>
 
