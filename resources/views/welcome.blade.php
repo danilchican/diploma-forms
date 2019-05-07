@@ -17,7 +17,6 @@
                                         <a href="{{ route('forms.view', ['id' => $form->id]) }}">
                                             {{ $form->getTitle() }}
                                         </a>
-                                        <small style="vertical-align: super; color: #e4e4e4">0{{--TODO add votes counts--}}</small>
                                     </h3>
                                 </div>
                                 <div class="panel-body">

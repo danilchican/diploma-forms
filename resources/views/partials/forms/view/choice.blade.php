@@ -1,0 +1,1 @@
+{{ $question->answerType->type }}

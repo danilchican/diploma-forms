@@ -93,6 +93,17 @@ class FormQuestion extends Model
     }
 
     /**
+     * Check if question is need to chosen answer.
+     *
+     * @return bool
+     */
+    public function isNeedToChooseAnswer()
+    {
+        $chosable = collect(config('app.answer_types'))->where('answers_required', true);
+        return $chosable->firstWhere('type', $this->answerType->type) !== null;
+    }
+
+    /**
      * Get related form for the question.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
