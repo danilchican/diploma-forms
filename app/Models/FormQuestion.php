@@ -97,7 +97,7 @@ class FormQuestion extends Model
      *
      * @return bool
      */
-    public function isNeedToChooseAnswer()
+    public function isNeedToChooseAnswer()// TODO change to isAnswersRequired()
     {
         $chosable = collect(config('app.answer_types'))->where('answers_required', true);
         return $chosable->firstWhere('type', $this->answerType->type) !== null;
