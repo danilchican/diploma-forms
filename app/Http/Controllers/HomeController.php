@@ -18,6 +18,6 @@ class HomeController extends Controller
      */
     public function showHomePage(Request $request)
     {
-        return view('welcome')->with('forms', Form::published()->paginate(self::FORMS_PER_PAGE));
+        return view('welcome')->with('forms', Form::published()->latest()->paginate(self::FORMS_PER_PAGE));
     }
 }

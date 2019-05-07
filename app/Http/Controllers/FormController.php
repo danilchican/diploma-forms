@@ -8,7 +8,8 @@ class FormController extends Controller
 {
     public function viewFormPage($id)
     {
-        $form = Form::published()->findOrFail($id);
-        return view('forms.view')->with('form', $form);
+        $form = Form::published()->with(['questions', 'questions.answerType', 'questions.answers'])->findOrFail($id);
+        $questions = $form->questions;
+        return view('forms.view')->with(compact(['form', 'questions']));
     }
 }

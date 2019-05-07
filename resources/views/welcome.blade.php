@@ -17,14 +17,18 @@
                                         <a href="{{ route('forms.view', ['id' => $form->id]) }}">
                                             {{ $form->getTitle() }}
                                         </a>
+                                        <small style="vertical-align: super; color: #e4e4e4">0{{--TODO add votes counts--}}</small>
                                     </h3>
                                 </div>
                                 <div class="panel-body">
                                     <p>{{ $form->getDescription() }}</p>
                                     <div class="form-item-footer">
                                         <hr/>
-                                        {{--TODO add votes counts--}}
-                                        <span style="color: #989898"><i>Проголосовало: 0</i></span>
+                                        <span style="color: #989898">
+                                            <i>
+                                                Дата создания: {{ $form->getCreatedDate()->format('m.d.Y H:i') }}
+                                            </i>
+                                        </span>
                                         {{--TODO add downloading results --}}
                                         {{--TODO add condition to show button votes > 0 --}}
                                         <span class="pull-right">
