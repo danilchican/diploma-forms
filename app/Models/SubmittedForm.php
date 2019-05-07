@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\SubmittedForm
  *
- * @property-read \App\Models\Form           $form
- * @property int                             $id
- * @property int                             $form_id
- * @property string                          $author_ip_address
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Form                                                       $form
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SubmittedAnswer[] $answers
+ * @property int                                                                         $id
+ * @property int                                                                         $form_id
+ * @property string                                                                      $author_ip_address
+ * @property \Illuminate\Support\Carbon|null                                             $created_at
+ * @property \Illuminate\Support\Carbon|null                                             $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm query()
@@ -60,5 +61,15 @@ class SubmittedForm extends Model
     public function form()
     {
         return $this->belongsTo(Form::class);
+    }
+
+    /**
+     * Get user answers for a form.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
+    {
+        return $this->hasMany(SubmittedAnswer::class);
     }
 }
