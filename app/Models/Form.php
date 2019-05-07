@@ -166,6 +166,18 @@ class Form extends Model
     }
 
     /**
+     * Select opened forms only.
+     *
+     * @param QueryBuilder $query
+     *
+     * @return mixed
+     */
+    public function scopeOpened($query)
+    {
+        return $query->where('is_finished', false);
+    }
+
+    /**
      * @param QueryBuilder $query
      * @param string       $phrase
      *
