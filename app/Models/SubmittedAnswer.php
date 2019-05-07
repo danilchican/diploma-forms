@@ -37,6 +37,11 @@ class SubmittedAnswer extends Model
     ];
 
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * Get text answer for a question.
      *
      * @return string|null
