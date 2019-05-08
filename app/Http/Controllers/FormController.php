@@ -28,7 +28,11 @@ class FormController extends Controller
         $questions = $form->questions;
         $answersCount = $form->submissions_count;
         $isAlreadySubmitted = SubmittedForm::submittedBy(request()->ip())->first() !== null;
-        return view('forms.view')->with(compact(['form', 'questions', 'answersCount', 'isAlreadySubmitted']));
+        $isFinished = $form->isFinished();
+
+        return view('forms.view')->with(compact([
+            'form', 'questions', 'answersCount', 'isAlreadySubmitted', 'isFinished',
+        ]));
     }
 
     /**
