@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@showHomePage')->name('index');
 Route::get('/search', 'SearchController@search')->name('search');
+Route::get('/about', 'PageController@showAboutPage')->name('about');
+Route::get('/contacts', 'PageController@showContactsPage')->name('contacts');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');

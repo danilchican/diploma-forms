@@ -17,8 +17,12 @@
                 <li class="{{ Route::currentRouteName() === 'index' ? 'active': '' }}">
                     <a href="{{ route('index') }}">Главная</a>
                 </li>
-                <li><a href="#">О кафедре</a></li>
-                <li><a href="#">Контакты</a></li>
+                <li class="{{ Route::currentRouteName() === 'about' ? 'active': '' }}">
+                    <a href="{{ route('about') }}">О кафедре</a>
+                </li>
+                <li class="{{ Route::currentRouteName() === 'contacts' ? 'active': '' }}">
+                    <a href="{{ route('contacts') }}">Контакты</a>
+                </li>
             </ul>
             <div class="col-md-6 pull-right">
                 <div class="row">
