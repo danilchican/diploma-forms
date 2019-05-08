@@ -97,7 +97,7 @@ class SubmittedForm extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function answers()
+    public function submittedAnswers()
     {
         return $this->hasMany(SubmittedAnswer::class);
     }
