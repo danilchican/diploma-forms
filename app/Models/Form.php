@@ -168,6 +168,18 @@ class Form extends Model
     }
 
     /**
+     * Select unpublished forms only.
+     *
+     * @param QueryBuilder $query
+     *
+     * @return mixed
+     */
+    public function scopeUnpublished($query)
+    {
+        return $query->where('is_published', false);
+    }
+
+    /**
      * Select opened forms only.
      *
      * @param QueryBuilder $query
@@ -177,6 +189,18 @@ class Form extends Model
     public function scopeOpened($query)
     {
         return $query->where('is_finished', false);
+    }
+
+    /**
+     * Select finished forms only.
+     *
+     * @param QueryBuilder $query
+     *
+     * @return mixed
+     */
+    public function scopeFinished($query)
+    {
+        return $query->where('is_finished', true);
     }
 
     /**
