@@ -29,6 +29,7 @@ window.toastr.options = {
 
 Vue.component('create-form', require('./components/CreateFormComponent.vue').default);
 Vue.component('edit-form', require('./components/EditFormComponent.vue').default);
+Vue.component('form-results', require('./components/FormResultsComponent.vue').default);
 
 const app = new Vue({
     el: '#app'

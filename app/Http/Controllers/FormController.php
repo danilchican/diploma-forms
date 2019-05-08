@@ -23,10 +23,10 @@ class FormController extends Controller
     public function viewFormPage($id)
     {
         $form = Form::published()->with(['questions', 'questions.answerType', 'questions.answers'])
-            ->withCount('submissions')
+            ->withCount('answers')
             ->findOrFail($id);
         $questions = $form->questions;
-        $answersCount = $form->submissions_count;
+        $answersCount = $form->answers_count;
         $isAlreadySubmitted = SubmittedForm::submittedBy(request()->ip())->forForm($id)->first() !== null;
         $isFinished = $form->isFinished();
 

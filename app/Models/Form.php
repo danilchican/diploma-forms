@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read \App\Models\User                                                     $author
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FormQuestion[]  $questions
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SubmittedForm[] $submissions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SubmittedForm[] $answers
  * @property int                                                                       $id
  * @property int|null                                                                  $author_id
  * @property string                                                                    $title
@@ -237,11 +237,11 @@ class Form extends Model
     }
 
     /**
-     * Get submissions for a form.
+     * Get answers for a form.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function submissions()
+    public function answers()
     {
         return $this->hasMany(SubmittedForm::class);
     }

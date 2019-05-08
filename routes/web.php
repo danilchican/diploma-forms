@@ -27,8 +27,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 Route::group(['prefix' => '/forms', 'as' => 'forms.'], function () {
     Route::get('/{id}/view', 'FormController@viewFormPage')->name('view');
-    Route::post('/submit', 'FormController@submitForm')
-        ->name('submit')
+    Route::post('/submit', 'FormController@submitForm')->name('submit')
         ->middleware('duplicate.submit');
 });
 
@@ -41,8 +40,10 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], '
         Route::get('/create', 'Dashboard\FormController@showCreateFormPage')->name('create');
         Route::post('/create', 'Dashboard\FormController@storeForm')->name('store');
 
-        Route::get('/{id}/edit', 'Dashboard\FormController@showEditFormPage')->name('edit');
         Route::post('/update', 'Dashboard\FormController@updateForm')->name('update');
+
+        Route::get('/{id}/edit', 'Dashboard\FormController@showEditFormPage')->name('edit');
+        Route::get('/{id}/view', 'Dashboard\FormController@showViewResultsFormPage')->name('view');
     });
 
     Route::group(['prefix' => '/questions', 'as' => 'questions.'], function () {

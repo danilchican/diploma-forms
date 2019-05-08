@@ -7,7 +7,6 @@
         <th>Окончен</th>
         <th>Опубликован</th>
         <th>Дата создания</th>
-        {{--TODO добавить кол-во проголосовавших--}}
         <th>Действие</th>
     </tr>
     </thead>
@@ -25,6 +24,9 @@
                 <a href="{{ route('dashboard.forms.edit', ['id' => $form->id]) }}"
                    class="btn btn-xs btn-warning" data-toggle="tooltip" data-placement="bottom"
                    data-original-title="Редактировать"><i class="fa fa-pencil" style="font-size: 14px;"></i></a>
+                <a href="{{ route('dashboard.forms.view', ['id' => $form->id]) }}"
+                   class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom"
+                   data-original-title="Посмотреть результаты"><i class="fa fa-eye" style="font-size: 14px;"></i></a>
             </td>
         </tr>
     @endforeach

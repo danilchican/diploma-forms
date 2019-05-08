@@ -46,6 +46,21 @@ class FormController extends Controller
     }
 
     /**
+     * Show View Results page of the form.
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showViewResultsFormPage($id)
+    {
+        $form = Form::with(['author', 'questions.answerType', 'questions.answers', 'answers'])->findOrFail($id);
+        $answers = $form->answers;
+
+        return view('dashboard.forms.view')->with(compact(['form', 'answers']));
+    }
+
+    /**
      * Create new Form.
      *
      * @param CreateFormRequest $request
