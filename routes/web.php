@@ -25,7 +25,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 Route::group(['prefix' => '/forms', 'as' => 'forms.'], function () {
     Route::get('/{id}/view', 'FormController@viewFormPage')->name('view');
-    Route::post('/submit', 'FormController@submitForm')->name('submit');
+    Route::post('/submit', 'FormController@submitForm')
+        ->name('submit')
+        ->middleware('duplicate.submit');
 });
 
 /* Dashboard Routes */

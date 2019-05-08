@@ -19,7 +19,7 @@ class CreateSubmittedFormsTable extends Migration
             $table->unsignedInteger('form_id');
             $table->foreign('form_id')->references('id')->on('forms');
 
-            $table->string('author_ip_address', 50);
+            $table->string('author_ip_address', 50)->index();
             $table->timestamps();
         });
     }
