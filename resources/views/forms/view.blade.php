@@ -2,7 +2,7 @@
 
 @section('content')
     <h3>Опрос: {{ $form->getTitle() }}</h3>
-    <p>Ответов: {{ $answersCount }}</p>
+    <p>Проголосовало: {{ $answersCount }}</p>
     <p>{{ $form->getDescription() }}</p>
     <hr>
     <div class="col-md-8 col-md-offset-2">
