@@ -3,10 +3,12 @@
         <div class="page-title">
             <div class="title_left"><h3>{{ editTitle }}</h3></div>
         </div>
-        <add-main-information :edit-title="title"
-                              :edit-description="description"
+        <add-main-information :edit-title="form.title"
+                              :edit-description="form.description"
+                              :edit-published="form.is_published"
+                              :edit-finished="form.is_finished"
+                              :is-edit-form="true"
                               @infoChanged="onMainInfoChanged"/>
-        <!--TODO add is_finished field-->
         <div class="row">
             <div class="col-sm-12 col-md-12 col-xs-12">
                 <div class="x_panel">
@@ -85,6 +87,8 @@
                 id: null,
                 title: '',
                 description: '',
+                published: null,
+                finished: null,
                 questions: [],
             }
         },
@@ -93,6 +97,9 @@
             this.id = this.form.id
             this.title = this.form.title
             this.description = this.form.description
+            this.published = this.form.is_published
+            this.finished = this.form.is_finished
+            console.log(this.published, this.finished)
 
             this.loadFormQuestions()
         },
@@ -116,6 +123,8 @@
             onMainInfoChanged(info) {
                 this.title = info.title
                 this.description = info.description
+                this.published = info.published
+                this.finished = info.finished
             },
 
             addQuestion(question) {
@@ -215,7 +224,9 @@
                     id: this.id,
                     title: this.title,
                     description: this.description,
-                    questions: this.questions
+                    questions: this.questions,
+                    is_published: this.published,
+                    is_finished: this.finished
                 }
 
                 axios.post(this.updateUrl, _payload).then(function (response) {

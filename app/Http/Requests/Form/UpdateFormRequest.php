@@ -27,6 +27,8 @@ class UpdateFormRequest extends FormRequest
             'id'                             => 'required|integer|exists:forms',
             'title'                          => 'required|min:3|max:255',
             'description'                    => 'nullable|min:3|max:1000',
+            'is_published'                   => 'required|boolean',
+            'is_finished'                    => 'required|boolean',
             'questions'                      => 'required|array|min:1',
             'questions.*'                    => 'array',
             'questions.*.id'                 => 'nullable|integer|exists:form_questions,id',

@@ -33,16 +33,41 @@
                                 <label>Опубликован: <span class="required">*</span>&nbsp;</label>
                                 <div id="published" class="btn-group" data-toggle="buttons">
                                     <label @click="updatePublished(true)" class="btn btn-default"
+                                           :class="['btn btn-default', published ? ' active' : '']"
                                            data-toggle-class="btn-primary"
                                            data-toggle-passive-class="btn-default">
                                         <input type="radio" name="published" value="true">
                                         Да
                                     </label>
                                     <label @click="updatePublished(false)" id="publish-default"
+                                           :class="['btn btn-default', !published ? ' active' : '']"
                                            class="btn btn-primary active"
                                            data-toggle-class="btn-primary"
                                            data-toggle-passive-class="btn-default">
                                         <input type="radio" name="published" value="false">
+                                        Нет
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" v-if="isEditForm">
+                            <div class="col-md-5 col-sm-5 col-xs-12 col-md-offset-2">
+                                <label>Завершен: <span class="required">*</span>&nbsp;</label>
+                                <div id="finished" class="btn-group" data-toggle="buttons">
+                                    <label @click="updateFinished(true)" class="btn btn-default"
+                                           :class="['btn btn-default', finished ? ' active' : '']"
+                                           data-toggle-class="btn-primary"
+                                           data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="finished" value="true">
+                                        Да
+                                    </label>
+                                    <label @click="updateFinished(false)" id="finished-default"
+                                           :class="['btn btn-default', !finished ? ' active' : '']"
+                                           class="btn btn-primary active"
+                                           data-toggle-class="btn-primary"
+                                           data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="finished" value="false">
                                         Нет
                                     </label>
                                 </div>
@@ -59,15 +84,26 @@
     export default {
         props: {
             editTitle: String,
-            editDescription: String
+            editDescription: String,
+            editPublished: Boolean,
+            editFinished: Boolean,
+            isEditForm: Boolean
         },
 
         data() {
             return {
                 title: '',
                 description: '',
-                published: false
+                published: false,
+                finished: false
             }
+        },
+
+        mounted() {
+            this.title = this.editTitle;
+            this.description = this.editDescription;
+            this.published = this.editPublished;
+            this.finished = this.editFinished;
         },
 
         watch: {
@@ -80,11 +116,20 @@
             published() {
                 this.$emit('infoChanged', this.getInfo());
             },
+            finished() {
+                this.$emit('infoChanged', this.getInfo());
+            },
             editTitle() {
                 this.title = this.editTitle
             },
             editDescription() {
                 this.description = this.editDescription
+            },
+            editPublished() {
+                this.published = this.editPublished
+            },
+            editFinished() {
+                this.finished = this.editFinished
             }
         },
 
@@ -93,12 +138,17 @@
                 return {
                     title: this.title,
                     description: this.description,
-                    published: this.published
+                    published: this.published,
+                    finished: this.finished
                 }
             },
 
             updatePublished(value) {
                 this.published = Boolean(value);
+            },
+
+            updateFinished(value) {
+                this.finished = Boolean(value);
             },
         }
     }

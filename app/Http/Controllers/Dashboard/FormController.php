@@ -140,7 +140,7 @@ class FormController extends Controller
         try {
             $form = Form::with(['questions', 'questions.answerType', 'questions.answers'])
                 ->findOrFail($request->input('id'));
-            $form->update($request->only(['title', 'description']));
+            $form->update($request->only(['title', 'description', 'is_finished', 'is_published']));
 
             $questions = collect($request->input('questions'));
 
