@@ -44,9 +44,6 @@ class FormController extends Controller
      */
     public function submitForm(SubmitFormRequest $request)
     {
-        // TODO add validation ip address for saving by middleware
-        // TODO add UI protect by ip address
-
         $form = Form::published()->opened()->findOrFail((int)$request->input('form-id'));
         $questionNumbers = collect($request->input('answers'))->keys()->toArray();
         $questions = $form->questions()->with('answerType')->whereIn('id', $questionNumbers)->get();

@@ -12,7 +12,7 @@
             @if($isFinished)
                 <div class="alert alert-warning">Голосование завершено.</div>
             @else
-                @if($isAlreadySubmitted)
+                @if($isAlreadySubmitted && !session('success'))
                     <div class="alert alert-warning">
                         Вы уже проходили данный опрос. Повторное голосование невозможно.
                     </div>
