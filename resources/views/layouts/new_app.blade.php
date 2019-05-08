@@ -1,5 +1,4 @@
-{{--TODO rename--}}
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -24,7 +23,8 @@
     <hr>
     <footer>
         <ul id="footer-blocks">
-            <li class="col-md-4"><img width="250" src="{{ asset('/images/logo.jpg') }}" alt="Кафедра менеджмента БГУИР"/></li>
+            <li class="col-md-4"><img width="250" src="{{ asset('/images/logo.jpg') }}"
+                                      alt="Кафедра менеджмента БГУИР"/></li>
             <li class="col-md-4"><p style="padding-top: 10px;"><i>+375(17)293-86-46, +375(17)293-88-26</i></p></li>
             <li class="col-md-4">
                 <span style="padding-top: 10px" class="pull-right">
