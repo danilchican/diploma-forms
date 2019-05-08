@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm whereFormId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm submittedBy($ip)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmittedForm forForm($id)
  * @mixin \Eloquent
  */
 class SubmittedForm extends Model
@@ -51,6 +54,32 @@ class SubmittedForm extends Model
     public function setAuthorIpAddress($ip_address)
     {
         $this->author_ip_address = $ip_address;
+    }
+
+    /**
+     * Filter submitted forms by IP address of the client.
+     *
+     * @param QueryBuilder $query
+     * @param string       $ip
+     *
+     * @return mixed
+     */
+    public function scopeSubmittedBy($query, $ip)
+    {
+        return $query->where('author_ip_address', $ip);
+    }
+
+    /**
+     * Filter submitted form for a particular form.
+     *
+     * @param QueryBuilder $query
+     * @param              $id
+     *
+     * @return mixed
+     */
+    public function scopeForForm($query, $id)
+    {
+        return $query->where('form_id', $id);
     }
 
     /**
