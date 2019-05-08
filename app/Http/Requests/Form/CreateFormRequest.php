@@ -25,6 +25,7 @@ class CreateFormRequest extends FormRequest
     {
         return [
             'title'                          => 'required|min:3|max:255',
+            'is_published'                   => 'required|boolean',
             'description'                    => 'nullable|min:3|max:1000',
             'questions'                      => 'required|array|min:1',
             'questions.*'                    => 'array',

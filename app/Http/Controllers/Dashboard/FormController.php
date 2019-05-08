@@ -119,7 +119,7 @@ class FormController extends Controller
     {
         $user = \Auth::user();
 
-        $form = new Form($request->only(['title', 'description']));
+        $form = new Form($request->only(['title', 'description', 'is_published']));
         $user->forms()->save($form);
 
         $questions = $request->input('questions');

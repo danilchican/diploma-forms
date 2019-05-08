@@ -27,6 +27,27 @@
                                           rows="5" class="form-control"></textarea>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-5 col-sm-5 col-xs-12 col-md-offset-2">
+                                <label>Опубликован: <span class="required">*</span>&nbsp;</label>
+                                <div id="published" class="btn-group" data-toggle="buttons">
+                                    <label @click="updatePublished(true)" class="btn btn-default"
+                                           data-toggle-class="btn-primary"
+                                           data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="published" value="true">
+                                        Да
+                                    </label>
+                                    <label @click="updatePublished(false)" id="publish-default"
+                                           class="btn btn-primary active"
+                                           data-toggle-class="btn-primary"
+                                           data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="published" value="false">
+                                        Нет
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -44,7 +65,8 @@
         data() {
             return {
                 title: '',
-                description: ''
+                description: '',
+                published: false
             }
         },
 
@@ -53,6 +75,9 @@
                 this.$emit('infoChanged', this.getInfo());
             },
             description() {
+                this.$emit('infoChanged', this.getInfo());
+            },
+            published() {
                 this.$emit('infoChanged', this.getInfo());
             },
             editTitle() {
@@ -67,9 +92,14 @@
             getInfo() {
                 return {
                     title: this.title,
-                    description: this.description
+                    description: this.description,
+                    published: this.published
                 }
-            }
+            },
+
+            updatePublished(value) {
+                this.published = Boolean(value);
+            },
         }
     }
 </script>

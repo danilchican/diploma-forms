@@ -77,6 +77,7 @@
                 editQuestionIndex: null,
                 title: '',
                 description: '',
+                published: false,
                 questions: [],
             }
         },
@@ -100,6 +101,7 @@
             onMainInfoChanged(info) {
                 this.title = info.title
                 this.description = info.description
+                this.published = info.published
             },
 
             addQuestion(question) {
@@ -127,6 +129,7 @@
                 let _payload = {
                     title: this.title,
                     description: this.description,
+                    is_published: this.published,
                     questions: this.questions
                 }
 
