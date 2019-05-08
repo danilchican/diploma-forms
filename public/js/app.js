@@ -35130,6 +35130,17 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/sass/auth.scss":
+/*!**********************************!*\
+  !*** ./resources/sass/auth.scss ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/dashboard.scss":
 /*!***************************************!*\
   !*** ./resources/sass/dashboard.scss ***!
@@ -35142,14 +35153,15 @@ if (token) {
 /***/ }),
 
 /***/ 0:
-/*!*********************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/dashboard.scss ***!
-  \*********************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/auth.scss ./resources/sass/dashboard.scss ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! D:\serverxampp\htdocs\diploma.anya\www\resources\js\app.js */"./resources/js/app.js");
 __webpack_require__(/*! D:\serverxampp\htdocs\diploma.anya\www\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\serverxampp\htdocs\diploma.anya\www\resources\sass\auth.scss */"./resources/sass/auth.scss");
 module.exports = __webpack_require__(/*! D:\serverxampp\htdocs\diploma.anya\www\resources\sass\dashboard.scss */"./resources/sass/dashboard.scss");
 
 
