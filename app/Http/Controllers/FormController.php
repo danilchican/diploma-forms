@@ -22,9 +22,13 @@ class FormController extends Controller
      */
     public function viewFormPage($id)
     {
-        $form = Form::published()->with(['questions', 'questions.answerType', 'questions.answers'])->findOrFail($id);
+        $form = Form::published()->with(['questions', 'questions.answerType', 'questions.answers'])
+            ->withCount('submissions')
+            ->findOrFail($id);
         $questions = $form->questions;
-        return view('forms.view')->with(compact(['form', 'questions']));
+        $answersCount = $form->submissions_count;
+        $isAlreadySubmitted = SubmittedForm::submittedBy(request()->ip())->first() !== null;
+        return view('forms.view')->with(compact(['form', 'questions', 'answersCount', 'isAlreadySubmitted']));
     }
 
     /**
