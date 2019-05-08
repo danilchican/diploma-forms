@@ -27,7 +27,7 @@ class FormController extends Controller
             ->findOrFail($id);
         $questions = $form->questions;
         $answersCount = $form->submissions_count;
-        $isAlreadySubmitted = SubmittedForm::submittedBy(request()->ip())->first() !== null;
+        $isAlreadySubmitted = SubmittedForm::submittedBy(request()->ip())->forForm($id)->first() !== null;
         $isFinished = $form->isFinished();
 
         return view('forms.view')->with(compact([

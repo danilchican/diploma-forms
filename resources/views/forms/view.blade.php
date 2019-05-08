@@ -54,7 +54,7 @@
                 </div>
             </div>
         @else
-            <h3>Узнать результаты вы можете скачав результаты в формате pdf.</h3>
+            <h3 style="text-align: center">Узнать результаты вы можете, скачав их в формате pdf.</h3>
             {{--TODO add button--}}
             <p style="text-align: center"><a href="#" class="btn btn-sm btn-success">Скачать результаты</a></p>
         @endif
