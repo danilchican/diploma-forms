@@ -2100,6 +2100,7 @@ __webpack_require__.r(__webpack_exports__);
       editQuestionIndex: null,
       title: '',
       description: '',
+      published: false,
       questions: []
     };
   },
@@ -2120,6 +2121,7 @@ __webpack_require__.r(__webpack_exports__);
     onMainInfoChanged: function onMainInfoChanged(info) {
       this.title = info.title;
       this.description = info.description;
+      this.published = info.published;
     },
     addQuestion: function addQuestion(question) {
       this.questions.push(question);
@@ -2142,6 +2144,7 @@ __webpack_require__.r(__webpack_exports__);
       var _payload = {
         title: this.title,
         description: this.description,
+        is_published: this.published,
         questions: this.questions
       };
       axios.post(this.storeUrl, _payload).then(function (response) {
@@ -2279,6 +2282,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2292,6 +2297,8 @@ __webpack_require__.r(__webpack_exports__);
       id: null,
       title: '',
       description: '',
+      published: null,
+      finished: null,
       questions: []
     };
   },
@@ -2299,6 +2306,9 @@ __webpack_require__.r(__webpack_exports__);
     this.id = this.form.id;
     this.title = this.form.title;
     this.description = this.form.description;
+    this.published = this.form.is_published;
+    this.finished = this.form.is_finished;
+    console.log(this.published, this.finished);
     this.loadFormQuestions();
   },
   computed: {
@@ -2318,6 +2328,8 @@ __webpack_require__.r(__webpack_exports__);
     onMainInfoChanged: function onMainInfoChanged(info) {
       this.title = info.title;
       this.description = info.description;
+      this.published = info.published;
+      this.finished = info.finished;
     },
     addQuestion: function addQuestion(question) {
       this.questions.push(question);
@@ -2413,7 +2425,9 @@ __webpack_require__.r(__webpack_exports__);
         id: this.id,
         title: this.title,
         description: this.description,
-        questions: this.questions
+        questions: this.questions,
+        is_published: this.published,
+        is_finished: this.finished
       };
       axios.post(this.updateUrl, _payload).then(function (response) {
         var data = response.data;
@@ -2514,16 +2528,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     editTitle: String,
-    editDescription: String
+    editDescription: String,
+    editPublished: Boolean,
+    editFinished: Boolean,
+    isEditForm: Boolean
   },
   data: function data() {
     return {
       title: '',
-      description: ''
+      description: '',
+      published: false,
+      finished: false
     };
+  },
+  mounted: function mounted() {
+    this.title = this.editTitle;
+    this.description = this.editDescription;
+    this.published = this.editPublished;
+    this.finished = this.editFinished;
   },
   watch: {
     title: function title() {
@@ -2532,19 +2603,39 @@ __webpack_require__.r(__webpack_exports__);
     description: function description() {
       this.$emit('infoChanged', this.getInfo());
     },
+    published: function published() {
+      this.$emit('infoChanged', this.getInfo());
+    },
+    finished: function finished() {
+      this.$emit('infoChanged', this.getInfo());
+    },
     editTitle: function editTitle() {
       this.title = this.editTitle;
     },
     editDescription: function editDescription() {
       this.description = this.editDescription;
+    },
+    editPublished: function editPublished() {
+      this.published = this.editPublished;
+    },
+    editFinished: function editFinished() {
+      this.finished = this.editFinished;
     }
   },
   methods: {
     getInfo: function getInfo() {
       return {
         title: this.title,
-        description: this.description
+        description: this.description,
+        published: this.published,
+        finished: this.finished
       };
+    },
+    updatePublished: function updatePublished(value) {
+      this.published = Boolean(value);
+    },
+    updateFinished: function updateFinished(value) {
+      this.finished = Boolean(value);
     }
   }
 });
@@ -37126,7 +37217,13 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("add-main-information", {
-        attrs: { "edit-title": _vm.title, "edit-description": _vm.description },
+        attrs: {
+          "edit-title": _vm.form.title,
+          "edit-description": _vm.form.description,
+          "edit-published": _vm.form.is_published,
+          "edit-finished": _vm.form.is_finished,
+          "is-edit-form": true
+        },
         on: { infoChanged: _vm.onMainInfoChanged }
       }),
       _vm._v(" "),
@@ -37432,7 +37529,179 @@ var render = function() {
                   })
                 ]
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "div",
+                { staticClass: "col-md-5 col-sm-5 col-xs-12 col-md-offset-2" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "btn-group",
+                      attrs: { id: "published", "data-toggle": "buttons" }
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "btn btn-default",
+                          class: [
+                            "btn btn-default",
+                            _vm.published ? " active" : ""
+                          ],
+                          attrs: {
+                            "data-toggle-class": "btn-primary",
+                            "data-toggle-passive-class": "btn-default"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.updatePublished(true)
+                            }
+                          }
+                        },
+                        [
+                          _c("input", {
+                            attrs: {
+                              type: "radio",
+                              name: "published",
+                              value: "true"
+                            }
+                          }),
+                          _vm._v(
+                            "\n                                    Да\n                                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "btn btn-primary active",
+                          class: [
+                            "btn btn-default",
+                            !_vm.published ? " active" : ""
+                          ],
+                          attrs: {
+                            id: "publish-default",
+                            "data-toggle-class": "btn-primary",
+                            "data-toggle-passive-class": "btn-default"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.updatePublished(false)
+                            }
+                          }
+                        },
+                        [
+                          _c("input", {
+                            attrs: {
+                              type: "radio",
+                              name: "published",
+                              value: "false"
+                            }
+                          }),
+                          _vm._v(
+                            "\n                                    Нет\n                                "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm.isEditForm
+              ? _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-md-5 col-sm-5 col-xs-12 col-md-offset-2"
+                    },
+                    [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn-group",
+                          attrs: { id: "finished", "data-toggle": "buttons" }
+                        },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "btn btn-default",
+                              class: [
+                                "btn btn-default",
+                                _vm.finished ? " active" : ""
+                              ],
+                              attrs: {
+                                "data-toggle-class": "btn-primary",
+                                "data-toggle-passive-class": "btn-default"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.updateFinished(true)
+                                }
+                              }
+                            },
+                            [
+                              _c("input", {
+                                attrs: {
+                                  type: "radio",
+                                  name: "finished",
+                                  value: "true"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                                    Да\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "btn btn-primary active",
+                              class: [
+                                "btn btn-default",
+                                !_vm.finished ? " active" : ""
+                              ],
+                              attrs: {
+                                id: "finished-default",
+                                "data-toggle-class": "btn-primary",
+                                "data-toggle-passive-class": "btn-default"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.updateFinished(false)
+                                }
+                              }
+                            },
+                            [
+                              _c("input", {
+                                attrs: {
+                                  type: "radio",
+                                  name: "finished",
+                                  value: "false"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                                    Нет\n                                "
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
           ])
         ])
       ])
@@ -37465,6 +37734,26 @@ var staticRenderFns = [
     return _c("label", { attrs: { for: "form-title" } }, [
       _vm._v("Название опроса: "),
       _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Опубликован: "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v(" ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Завершен: "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v(" ")
     ])
   }
 ]
