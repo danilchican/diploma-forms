@@ -17,7 +17,7 @@
             <td>{{ $template->questions_count }}</td>
             <td><i>{{ $template->getCreatedDate()->format('m.d.Y H:i') }}</i></td>
             <td>
-                <a href="{{ route('dashboard.forms.edit', ['id' => $template->id]) }}"
+                <a href="{{ route('dashboard.forms.create') }}?template={{ $template->id }}"
                    class="btn btn-xs btn-primary">
                     <i class="fa fa-check" style="font-size: 14px;"></i> Использовать шаблон
                 </a>

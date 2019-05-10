@@ -11,6 +11,7 @@ use App\Models\AnswerType;
 use App\Models\AnswerVariant;
 use App\Models\Form;
 use App\Models\FormQuestion;
+use App\Models\FormTemplate;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -20,9 +21,21 @@ use Mavinoo\LaravelBatch\LaravelBatchFacade as Batch;
 
 class FormController extends Controller
 {
-    public function showCreateFormPage()
+    public function showCreateFormPage(Request $request)
     {
-        return view('dashboard.forms.create')->with('answerTypes', AnswerType::all());
+        $answerTypes = AnswerType::all();
+        $hasTemplate = false;
+        $data = compact(['answerTypes', 'hasTemplate']);
+
+        if ($request->has('template')) {
+            $hasTemplate = true;
+            $template = FormTemplate::with('questions.answerVariants', 'questions.answerType')
+                ->findOrFail($request->template);
+
+            $data = array_merge($data, compact(['hasTemplate', 'template']));
+        }
+
+        return view('dashboard.forms.create')->with($data);
     }
 
     public function showFormsListPage()

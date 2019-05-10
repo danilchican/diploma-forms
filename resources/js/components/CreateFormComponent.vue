@@ -3,7 +3,9 @@
         <div class="page-title">
             <div class="title_left"><h3>Добавление нового опроса</h3></div>
         </div>
-        <add-main-information @infoChanged="onMainInfoChanged"/>
+        <add-main-information :edit-title="title"
+                              :edit-description="description"
+                              @infoChanged="onMainInfoChanged"/>
         <div class="row">
             <div class="col-sm-12 col-md-12 col-xs-12">
                 <div class="x_panel">
@@ -68,7 +70,12 @@
     import AddMainInformationComponent from './FormMainInformationComponent'
 
     export default {
-        props: ['answerTypes', 'storeUrl'],
+        props: {
+            useTemplate: Boolean,
+            template: Object,
+            answerTypes: Array,
+            storeUrl: String,
+        },
 
         data() {
             return {
@@ -82,6 +89,29 @@
             }
         },
 
+        created() {
+            if (this.useTemplate) {
+                this.title = this.template.title
+                this.description = this.template.description
+                this.questions = this.template.questions.map(function(item) {
+                    let _question =  {
+                        title: item.title,
+                        is_required: item.is_required,
+                        selectedAnswerType: item.answer_type.type,
+                        answers: []
+                    }
+
+                    if(item.answer_type.answers_required) {
+                        _question.answers = item.answer_variants.map(function(variant) {
+                            return { title: variant.title }
+                        })
+                    }
+
+                    return _question
+                })
+            }
+        },
+
         computed: {
             dragOptions() {
                 return {
@@ -89,7 +119,7 @@
                     group: "description",
                     disabled: false,
                     ghostClass: "ghost"
-                };
+                }
             }
         },
 
