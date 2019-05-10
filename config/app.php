@@ -265,4 +265,169 @@ return [
             'answers_required' => false,
         ],
     ],
+
+    'form_templates' => [
+        [
+            'title'       => 'Опрос выпускников кафедры',
+            'description' => null,
+            'questions'   => [
+                [
+                    'title'       => 'По какой специальности Вы обучались?',
+                    'is_required' => true,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'           => 'Какую квалификацию Вы получили?',
+                    'is_required'     => true,
+                    'answer_type'     => 'radio',
+                    'answer_variants' => ['Бакалавр', 'Магистр'],
+                ],
+                [
+                    'title'       => 'Сколько лет длилось Ваше обучение?',
+                    'is_required' => true,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'           => 'Насколько качественным было преподавание профилирующих предметов?',
+                    'is_required'     => false,
+                    'answer_type'     => 'radio',
+                    'answer_variants' => [
+                        'Очень качественное', 'Качественное', 'Скорее качественное',
+                        'Скорее некачественное', 'Некачественное',
+                    ],
+                ],
+                [
+                    'title'           => 'Вы работали в период обучения? Если да, выберите один из ' .
+                        'последующих вариантов:',
+                    'is_required'     => true,
+                    'answer_type'     => 'radio',
+                    'answer_variants' => [
+                        'Нет', 'Да, только подработки (до 19 часов в неделю)', 'Да, 20 - 40 часов в неделю',
+                        'Да, более 40 часов в неделю, но на неполный рабочий день', 'Да, полный рабочий день',
+                    ],
+                ],
+                [
+                    'title'           => 'Собираетесь ли вы продолжать учиться?',
+                    'is_required'     => true,
+                    'answer_type'     => 'radio',
+                    'answer_variants' => ['Да', 'Нет'],
+                ],
+                [
+                    'title'           => 'Университет оказывал помощь вашему карьерному росту? Мотивационные ' .
+                        'программы, стажировки и т.п.?',
+                    'is_required'     => true,
+                    'answer_type'     => 'radio',
+                    'answer_variants' => ['Да', 'Нет'],
+                ],
+                [
+                    'title'       => 'Ваши впечатления об обучении в университете:',
+                    'is_required' => false,
+                    'answer_type' => 'textarea',
+                ],
+            ],
+        ],
+        [
+            'title'       => 'Оценка курса',
+            'description' => 'Оставьте отзыв о пройденном курсе. Оцените его структуру и содержание, а также ' .
+                'работу преподавателя',
+            'questions'   => [
+                [
+                    'title'       => 'Название курса',
+                    'is_required' => true,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'       => 'ФИО преподавателя',
+                    'is_required' => true,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'       => 'Ваше мнение о пройденном курсе',
+                    'is_required' => true,
+                    'answer_type' => 'textarea',
+                ],
+                [
+                    'title'       => 'Ваше мнение о работе преподавателя',
+                    'is_required' => true,
+                    'answer_type' => 'textarea',
+                ],
+                [
+                    'title'       => 'Ваши предпочтения по улучшению курса:',
+                    'is_required' => true,
+                    'answer_type' => 'textarea',
+                ],
+                [
+                    'title'       => 'Что в этом курсе было самым ценным и полезным?',
+                    'is_required' => true,
+                    'answer_type' => 'textarea',
+                ],
+                [
+                    'title'           => 'Вы бы записались на другой предмет, преподаваемый тем же лектором?',
+                    'is_required'     => true,
+                    'answer_type'     => 'radio',
+                    'answer_variants' => ['Да', 'Нет'],
+                ],
+            ],
+        ],
+        [
+            'title'       => 'Контактная информация',
+            'description' => null,
+            'questions'   => [
+                [
+                    'title'       => 'Введите ФИО',
+                    'is_required' => true,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'       => 'Ваш номер группы?',
+                    'is_required' => true,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'       => 'Ваш номер телефона?',
+                    'is_required' => true,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'       => 'Ваш адрес проживания?',
+                    'is_required' => false,
+                    'answer_type' => 'text',
+                ],
+            ],
+        ],
+        [
+            'title'       => 'Опрос о магистратуре',
+            'description' => 'Просим Вас пройти опрос: планируете ли Вы поступать в магистратуру по специальности ' .
+                '"Электронная экономика"? Если да, то, пожалуйста, заполните данную форму',
+            'questions'   => [
+                [
+                    'title'       => 'Ваше ФИО',
+                    'is_required' => true,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'           => 'Вы бы хотели поступить на платную или бюджетную форму обучения?',
+                    'is_required'     => true,
+                    'answer_type'     => 'radio',
+                    'answer_variants' => ['Бюджет', 'Платная'],
+                ],
+                [
+                    'title'           => 'Вы планируете выбрать очную или заочную форму обучения?',
+                    'is_required'     => true,
+                    'answer_type'     => 'radio',
+                    'answer_variants' => ['Очная', 'Заочная'],
+                ],
+                [
+                    'title'       => 'Ваш контактный номер телефона:',
+                    'is_required' => false,
+                    'answer_type' => 'text',
+                ],
+                [
+                    'title'       => 'Введите электронную почту, по которой с Вами можно связаться:',
+                    'is_required' => false,
+                    'answer_type' => 'text',
+                ],
+            ],
+        ],
+    ],
 ];
