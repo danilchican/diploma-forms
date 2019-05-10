@@ -2674,6 +2674,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -70448,38 +70449,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    _vm._l(_vm.questions, function(item, index) {
-      return _c(
+  return _vm.questions.length > 0
+    ? _c(
         "div",
-        [
-          _c("span", { staticClass: "section" }, [
-            _vm._v(_vm._s(index + 1) + ". " + _vm._s(item.question_title))
-          ]),
-          _vm._v(" "),
-          item.diagram !== "list"
-            ? _c("v-chart", { attrs: { options: _vm.getDiagramOptions(item) } })
-            : _c("div", { staticClass: "row" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-md-12 col-sm-12 col-xs-12" },
-                  _vm._l(item.answers, function(answer, index) {
-                    return _c("blockquote", { staticClass: "col-md-6" }, [
-                      _c("p", [
-                        _vm._v(_vm._s(index + 1) + ". " + _vm._s(answer))
-                      ])
-                    ])
-                  }),
-                  0
-                )
-              ])
-        ],
-        1
+        _vm._l(_vm.questions, function(item, index) {
+          return _c(
+            "div",
+            [
+              _c("span", { staticClass: "section" }, [
+                _vm._v(_vm._s(index + 1) + ". " + _vm._s(item.question_title))
+              ]),
+              _vm._v(" "),
+              item.diagram !== "list"
+                ? _c("v-chart", {
+                    attrs: { options: _vm.getDiagramOptions(item) }
+                  })
+                : _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-12 col-sm-12 col-xs-12" },
+                      _vm._l(item.answers, function(answer, index) {
+                        return _c("blockquote", { staticClass: "col-md-6" }, [
+                          _c("p", [
+                            _vm._v(_vm._s(index + 1) + ". " + _vm._s(answer))
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+            ],
+            1
+          )
+        }),
+        0
       )
-    }),
-    0
-  )
+    : _c("p", [_vm._v("На данный момент результаты опроса отсутствуют.")])
 }
 var staticRenderFns = []
 render._withStripped = true
