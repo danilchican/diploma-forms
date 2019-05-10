@@ -119,6 +119,6 @@ class FormController extends Controller
 
         }
 
-        $submittedForm->answers()->saveMany($answers);
+        $submittedForm->submittedAnswers()->saveMany($answers);
     }
 }
