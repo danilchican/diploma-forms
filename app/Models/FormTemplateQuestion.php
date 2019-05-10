@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\FormTemplateQuestion
  *
- * @property-read \App\Models\AnswerType   $answerType
- * @property-read \App\Models\FormTemplate $template
- * @property int                           $id
- * @property string                        $title
- * @property int                           $answer_type_id
- * @property int                           $form_template_id
- * @property int                           $is_required
+ * @property-read \App\Models\AnswerType                                                       $answerType
+ * @property-read \App\Models\FormTemplate                                                     $template
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AnswerVariantTemplate[] $answerVariants
+ * @property int                                                                               $id
+ * @property string                                                                            $title
+ * @property int                                                                               $answer_type_id
+ * @property int                                                                               $form_template_id
+ * @property int                                                                               $is_required
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormTemplateQuestion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormTemplateQuestion newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormTemplateQuestion query()
@@ -76,5 +77,15 @@ class FormTemplateQuestion extends Model
     public function template()
     {
         return $this->belongsTo(FormTemplate::class);
+    }
+
+    /**
+     * Get related answer variants for a template question.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answerVariants()
+    {
+        return $this->hasMany(AnswerVariantTemplate::class);
     }
 }

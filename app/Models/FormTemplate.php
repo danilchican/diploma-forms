@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\FormTemplate
  *
- * @property int                        $id
- * @property string                     $title
- * @property string|null                $description
- * @property \Illuminate\Support\Carbon $created_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FormTemplateQuestion[] $questions
+ * @property int                                                                              $id
+ * @property string                                                                           $title
+ * @property string|null                                                                      $description
+ * @property \Illuminate\Support\Carbon                                                       $created_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormTemplate whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormTemplate whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FormTemplate whereId($value)
@@ -69,5 +70,15 @@ class FormTemplate extends Model
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * Get related template questions for a Form template.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function questions()
+    {
+        return $this->hasMany(FormTemplateQuestion::class);
     }
 }
