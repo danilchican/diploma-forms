@@ -31,6 +31,7 @@
 
         mounted() {
             this.questions = this.formQuestions
+            this.sortAnswers();
         },
 
         methods: {
@@ -39,21 +40,53 @@
                     return this.getPieDiagramOptions(item)
                 }
 
-                return {}
+                return this.getHorizontalBarDiagramOptions(item)
+            },
+
+            getHorizontalBarDiagramOptions(item) {
+                return {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        boundaryGap: [0, 0]
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: Object.values(item.answers).map(a => a.title + ' (' + a.percentage + '%)')
+                    },
+                    series: [
+                        {
+                            type: 'bar',
+                            sort: 'ascending',
+                            data: Object.values(item.answers).map(a => a.count)
+                        },
+                    ]
+                }
             },
 
             getPieDiagramOptions(item) {
                 return {
                     tooltip: {
-                        trigger: 'item',
                         formatter: "Количество: {c} ({d}%)"
                     },
                     series: [
                         {
-                            name: item.question_title,
                             type: 'pie',
                             showSymbol: false,
-                            data: this.getDiagramDataByAnswers(item.answers),
+                            data: Object.values(item.answers).map(function (a) {
+                                return {name: a.title, value: a.count}
+                            }),
                             animationType: 'scale',
                             animationEasing: 'elasticOut',
                         }
@@ -61,18 +94,26 @@
                 }
             },
 
-            getDiagramDataByAnswers(answers) {
-                let data = [];
+            sortAnswers() {
+                for (let i = 0; i < this.questions.length; i++) {
+                    let answers = Object.values(this.questions[i].answers);
 
-                for (let i = 0; i < answers.length; i++) {
-                    data.push({
-                        name: answers[i].title,
-                        value: answers[i].count,
-                        labelLine: 'asdasd'
-                    })
+                    if (this.questions[i].diagram !== 'horizontal') {
+                        continue;
+                    }
+
+                    this.questions[i].answers = answers.sort(function (a, b) {
+                        if (a.count < b.count) {
+                            return -1;
+                        }
+
+                        if (a.count > b.count) {
+                            return 1;
+                        }
+
+                        return 0;
+                    });
                 }
-
-                return data;
             }
         },
 
