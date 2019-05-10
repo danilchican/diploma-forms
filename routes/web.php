@@ -34,6 +34,7 @@ Route::group(['prefix' => '/forms', 'as' => 'forms.'], function () {
 /* Dashboard Routes */
 Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], 'as' => 'dashboard.'], function () {
     Route::get('/', 'Dashboard\DashboardController')->name('home');
+
     Route::group(['prefix' => '/forms', 'as' => 'forms.'], function () {
         Route::get('/', 'Dashboard\FormController@showFormsListPage')->name('index');
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -70,6 +71,16 @@ class FormTemplate extends Model
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * Get created date of the form template.
+     *
+     * @return Carbon
+     */
+    public function getCreatedDate()
+    {
+        return $this->created_at;
     }
 
     /**

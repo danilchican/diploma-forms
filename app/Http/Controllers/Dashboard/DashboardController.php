@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Form;
+use App\Models\FormTemplate;
 use App\Models\SubmittedForm;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -19,8 +19,12 @@ class DashboardController extends Controller
             ->get()
             ->count();
 
+        $templates = FormTemplate::withCount('questions')->get();
+        $templatesCount = FormTemplate::count();
+
         return view('dashboard.home')->with(compact([
-            'publishedFormsCount', 'finishedFormsCount', 'unpublishedFormsCount', 'votePublishers',
+            'publishedFormsCount', 'finishedFormsCount', 'unpublishedFormsCount',
+            'votePublishers', 'templates', 'templatesCount'
         ]));
     }
 }
