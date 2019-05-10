@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read \App\Models\Form                                                       $form
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SubmittedAnswer[] $answers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SubmittedAnswer[] $submittedAnswers
  * @property int                                                                         $id
  * @property int                                                                         $form_id
  * @property string                                                                      $author_ip_address

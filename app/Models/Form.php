@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form opened()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form finished()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form unpublished()
  * @mixin \Eloquent
  */
 class Form extends Model
