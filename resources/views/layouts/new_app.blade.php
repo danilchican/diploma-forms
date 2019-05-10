@@ -19,21 +19,24 @@
 <div class="container">
     @yield('content')
 </div>
-<div class="container">
-    <hr>
-    <footer>
+<footer>
+    <div class="container">
+        <hr>
         <ul id="footer-blocks">
-            <li class="col-md-4"><img width="250" src="{{ asset('/images/logo.jpg') }}"
-                                      alt="Кафедра менеджмента БГУИР"/></li>
-            <li class="col-md-4"><p style="padding-top: 10px;"><i>+375(17)293-86-46, +375(17)293-88-26</i></p></li>
+            <li class="col-md-4" style="padding-left:0">
+                <img width="200" class="footer-logo" src="{{ asset('/images/logo.jpg') }}" alt="Кафедра менеджмента БГУИР"/>
+            </li>
+            <li class="col-md-4 text-center">
+                <p style="padding-top: 10px;"><i>+375(17)293-86-46<br/>+375(17)293-88-26</i></p>
+            </li>
             <li class="col-md-4">
-                <span style="padding-top: 10px" class="pull-right">
+                <span style="padding-top: 20px" class="pull-right">
                     &copy; Кафедра менеджмента, 2019, <a href="mailto:kafman@bsuir.by">kafman@bsuir.by</a>
                 </span>
             </li>
         </ul>
-    </footer>
-</div>
+    </div>
+</footer>
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

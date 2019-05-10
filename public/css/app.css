@@ -3057,6 +3057,15 @@
   clip: auto;
 }
 
+body {
+  background-color: #fdfdfd;
+}
+
+footer,
+.navbar-default {
+  background-color: #ffffff;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -3087,6 +3096,7 @@ hr {
   margin-bottom: 10px;
   display: block;
   overflow: hidden;
+  padding: 0;
 }
 
 #footer-blocks li {
@@ -3101,5 +3111,9 @@ hr {
 
 label {
   font-weight: normal;
+}
+
+.footer-logo {
+  margin-top: 15px;
 }
 

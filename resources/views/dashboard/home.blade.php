@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <span class="count_top"><i class="fa fa-vcard-o"></i> Количество шаблонов</span>
-                <div class="count">{{ $templatesCount }}</div>
+                <div class="count green">{{ $templatesCount }}</div>
             </div>
         </div>
     </div>
