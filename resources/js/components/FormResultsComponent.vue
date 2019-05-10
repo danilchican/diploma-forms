@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="questions.length > 0">
         <div v-for="(item, index) in questions">
             <span class="section">{{ index + 1 }}. {{ item.question_title }}</span>
             <v-chart v-if="item.diagram !== 'list'" :options="getDiagramOptions(item)"></v-chart>
@@ -12,6 +12,7 @@
             </div>
         </div>
     </div>
+    <p v-else>На данный момент ни один человек не проголосовал.</p>
 </template>
 
 <script>
