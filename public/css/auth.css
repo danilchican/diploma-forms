@@ -5053,3 +5053,9 @@ ul.notifications {
   padding: 3px 8px;
 }
 
+blockquote {
+  padding: 4px 8px;
+  margin: 0 0 13px;
+  font-size: 12.5px;
+}
+
