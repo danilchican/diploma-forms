@@ -2088,11 +2088,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['answerTypes', 'storeUrl'],
+  props: {
+    useTemplate: Boolean,
+    template: Object,
+    answerTypes: Array,
+    storeUrl: String
+  },
   data: function data() {
     return {
       drag: false,
@@ -2103,6 +2110,30 @@ __webpack_require__.r(__webpack_exports__);
       published: false,
       questions: []
     };
+  },
+  created: function created() {
+    if (this.useTemplate) {
+      this.title = this.template.title;
+      this.description = this.template.description;
+      this.questions = this.template.questions.map(function (item) {
+        var _question = {
+          title: item.title,
+          is_required: item.is_required,
+          selectedAnswerType: item.answer_type.type,
+          answers: []
+        };
+
+        if (item.answer_type.answers_required) {
+          _question.answers = item.answer_variants.map(function (variant) {
+            return {
+              title: variant.title
+            };
+          });
+        }
+
+        return _question;
+      });
+    }
   },
   computed: {
     dragOptions: function dragOptions() {
@@ -69643,6 +69674,7 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("add-main-information", {
+        attrs: { "edit-title": _vm.title, "edit-description": _vm.description },
         on: { infoChanged: _vm.onMainInfoChanged }
       }),
       _vm._v(" "),
