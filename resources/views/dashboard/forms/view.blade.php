@@ -9,7 +9,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form-results :form-answers="{{ $answers }}"></form-results>
+                    <form-results :form-questions="{{ $questionsWithAnswers }}"></form-results>
                 </div>
             </div>
         </div>

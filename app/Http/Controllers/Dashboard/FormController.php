@@ -65,8 +65,9 @@ class FormController extends Controller
         ];
 
         $form = Form::with($relations)->findOrFail($id);
+        $questionsWithAnswers = collect($this->calculateStatistics($form));
 
-        return view('dashboard.forms.view')->with('statistics', $this->calculateStatistics($form));
+        return view('dashboard.forms.view')->with(compact(['form', 'questionsWithAnswers']));
     }
 
     /**
@@ -307,10 +308,10 @@ class FormController extends Controller
         $diagramType = $this->defineDiagramType($question->answerType, $question->answer_variants_count);
 
         return [
-            'question'      => $question->getTitle(),
-            'diagram'       => $diagramType,
-            'answers'       => $this->defineQuestionAnswersStatistic($answers, $diagramType),
-            'total_answers' => $answers->count(),
+            'question_title' => $question->getTitle(),
+            'diagram'        => $diagramType,
+            'answers'        => $this->defineQuestionAnswersStatistic($answers, $diagramType),
+            'total_answers'  => $answers->count(),
         ];
     }
 

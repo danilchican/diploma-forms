@@ -14,6 +14,7 @@
         "axios": "^0.18",
         "bootstrap": "^3.3.7",
         "cross-env": "^5.1",
+        "echarts": "^4.2.1",
         "font-awesome": "^4.7.0",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
@@ -25,6 +26,7 @@
         "sass-loader": "^7.1.0",
         "toastr": "^2.1.4",
         "vue": "^2.5.17",
+        "vue-echarts": "^4.0.2",
         "vue-template-compiler": "^2.6.10",
         "vuedraggable": "^2.20.0"
     }
