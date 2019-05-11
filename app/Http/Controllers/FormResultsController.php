@@ -11,7 +11,7 @@ class FormResultsController extends Controller
     public function downloadResultsInPDF($id)
     {
         $relations = $this->getStatisticsRelations();
-        $form = Form::with($relations)->findOrFail($id);
+        $form = Form::with($relations)->withCount('answers')->findOrFail($id);
         $questionsWithAnswers = collect($this->calculateStatistics($form));
 
         $pdf = \PDF::loadView('forms.results', ['diagrams' => $questionsWithAnswers, 'form' => $form]);
