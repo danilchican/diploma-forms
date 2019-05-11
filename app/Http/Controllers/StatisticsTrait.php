@@ -55,7 +55,7 @@ trait StatisticsTrait
         $answers = $answers->toArray();
 
         if ($diagramType === 'list') {
-            return collect($answers)->pluck('text_answer')->all();
+            return collect($answers)->pluck('text_answer')->unique()->all();
         }
 
         $needToOrderAnswers = $diagramType === 'horizontal';

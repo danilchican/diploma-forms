@@ -88,6 +88,14 @@
                             data: Object.values(item.answers).map(function (a) {
                                 return {name: a.title, value: a.count}
                             }),
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 5,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.3)'
+                                }
+                            },
+                            color: ['#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074'],
                             animationType: 'scale',
                             animationEasing: 'elasticOut',
                         }

@@ -48,15 +48,17 @@
 
                     @if($diagram['diagram'] === 'pie')
                         var options_{{ $index }} = {
-                            width: 700,
+                            width: 900,
                             height: 380,
+                            chartArea: { left:20, width: 750},
                         };
                         var chart_{{ $index }} = new google.visualization.PieChart(document.getElementById('{{ $diagram['diagram'] }}-chart-{{ $index }}'));
                     @else
                         var options_{{ $index }} = {
-                            width: 700,
+                            width: 900,
                             height: 380,
                             legend: {position: 'none'},
+                            chartArea: { left:300, width: 400},
                             hAxis: {
                                 minValue: 0
                             }
