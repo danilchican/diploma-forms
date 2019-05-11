@@ -2755,6 +2755,7 @@ __webpack_require__.r(__webpack_exports__);
         },
         series: [{
           type: 'bar',
+          color: ['#3366cc'],
           sort: 'ascending',
           data: Object.values(item.answers).map(function (a) {
             return a.count;
@@ -2783,7 +2784,7 @@ __webpack_require__.r(__webpack_exports__);
               shadowColor: 'rgba(0, 0, 0, 0.3)'
             }
           },
-          color: ['#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074'],
+          color: ['#109618', '#dc3912', '#ff9900', '#990099', '#3366cc'],
           animationType: 'scale',
           animationEasing: 'elasticOut'
         }]
