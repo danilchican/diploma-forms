@@ -5,8 +5,8 @@
             <v-chart v-if="item.diagram !== 'list'" :options="getDiagramOptions(item)"></v-chart>
             <div class="row" v-else>
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <blockquote v-for="(answer, index) in item.answers" class="col-md-6">
-                        <p>{{ index + 1 }}. {{ answer }}</p>
+                    <blockquote v-for="answer in item.answers" class="col-md-6">
+                        <p>{{ answer }}</p>
                     </blockquote>
                 </div>
             </div>

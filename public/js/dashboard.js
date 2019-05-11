@@ -70508,11 +70508,9 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "col-md-12 col-sm-12 col-xs-12" },
-                      _vm._l(item.answers, function(answer, index) {
+                      _vm._l(item.answers, function(answer) {
                         return _c("blockquote", { staticClass: "col-md-6" }, [
-                          _c("p", [
-                            _vm._v(_vm._s(index + 1) + ". " + _vm._s(answer))
-                          ])
+                          _c("p", [_vm._v(_vm._s(answer))])
                         ])
                       }),
                       0
