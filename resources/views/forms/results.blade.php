@@ -3,11 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
-        .pie-chart,
+        /*.pie-chart,
         .horizontal-chart {
-            width: 500px;
+            width: 700px;
             height: 380px;
-        }
+        }*/
 
         .clearfix:after {
             content: ".";
@@ -31,24 +31,41 @@
     <script type="text/javascript">
         function init() {
             google.load("visualization", "1.1", {
-                packages: ["corechart"],
+                packages: ["corechart", "bar"],
                 callback: 'drawCharts'
             });
         }
 
         function drawCharts() {
-                    @foreach($diagrams as $index => $diagram)
-                    @if($diagram['diagram'] !== 'list')
-            var data_{{ $index }} = google.visualization.arrayToDataTable([
-                    ['Ответ', 'Количество'],
-                            @foreach($diagram['answers'] as $answer)
-                    ['{{ $answer['title'] }}', {{ $answer['count'] }}]{{ !$loop->last ? ',' : '' }}
-                        @endforeach
-                ]);
+            @foreach($diagrams as $index => $diagram)
+                @if($diagram['diagram'] !== 'list')
+                    var data_{{ $index }} = google.visualization.arrayToDataTable([
+                            ['Ответ', 'Количество'],
+                                    @foreach($diagram['answers'] as $answer)
+                            ['{{ $answer['title'] . ' (' . $answer['percentage'] . '%)' }}', {{ $answer['count'] }}]{{ !$loop->last ? ',' : '' }}
+                                @endforeach
+                        ]);
 
-            var chart_{{ $index }} = new google.visualization.PieChart(document.getElementById('{{ $diagram['diagram'] }}-chart-{{ $index }}'));
-            chart_{{ $index }}.draw(data_{{ $index }}, {});
-            @endif
+                    @if($diagram['diagram'] === 'pie')
+                        var options_{{ $index }} = {
+                            width: 700,
+                            height: 380,
+                        };
+                        var chart_{{ $index }} = new google.visualization.PieChart(document.getElementById('{{ $diagram['diagram'] }}-chart-{{ $index }}'));
+                    @else
+                        var options_{{ $index }} = {
+                            width: 700,
+                            height: 380,
+                            legend: {position: 'none'},
+                            hAxis: {
+                                minValue: 0
+                            }
+                        };
+                        var chart_{{ $index }} = new google.visualization.BarChart(document.getElementById('{{ $diagram['diagram'] }}-chart-{{ $index }}'));
+                    @endif
+
+                    chart_{{ $index }}.draw(data_{{ $index }}, options_{{ $index }});
+                @endif
             @endforeach
         }
     </script>
