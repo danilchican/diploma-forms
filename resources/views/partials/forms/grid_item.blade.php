@@ -14,7 +14,6 @@
                 <span style="color: #989898">
                     <i>Дата создания: {{ $form->getCreatedDate()->format('m.d.Y H:i') }}</i>
                 </span>
-                {{--TODO add downloading results --}}
                 @if($form->isFinished())
                     <span class="pull-right">
                         <a href="{{ route('forms.results.download', ['id' => $form->id]) }}"

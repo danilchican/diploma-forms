@@ -55,8 +55,10 @@
             </div>
         @else
             <h3 style="text-align: center">Узнать результаты вы можете, скачав их в формате pdf.</h3>
-            {{--TODO add button--}}
-            <p style="text-align: center"><a href="#" class="btn btn-sm btn-success">Скачать результаты</a></p>
+            <p style="text-align: center">
+                <a href="{{ route('forms.results.download', ['id' => $form->id]) }}"
+                   class="btn btn-sm btn-success">Скачать результаты</a>
+            </p>
         @endif
     </div>
 @endsection
