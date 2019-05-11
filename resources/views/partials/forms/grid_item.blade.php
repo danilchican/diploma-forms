@@ -12,19 +12,16 @@
             <div class="form-item-footer">
                 <hr/>
                 <span style="color: #989898">
-                                            <i>
-                                                Дата создания: {{ $form->getCreatedDate()->format('m.d.Y H:i') }}
-                                            </i>
-                                        </span>
+                    <i>Дата создания: {{ $form->getCreatedDate()->format('m.d.Y H:i') }}</i>
+                </span>
                 {{--TODO add downloading results --}}
-                {{--TODO add condition to show button votes > 0 --}}
                 @if($form->isFinished())
                     <span class="pull-right">
-                                                {{--TODO add button--}}
-                        <a href="#" class="btn btn-xs btn-success" title="Скачать результаты">
-                                                    <i class="fa fa-download"></i>
-                                                </a>
-                                            </span>
+                        <a href="{{ route('forms.results.download', ['id' => $form->id]) }}"
+                           class="btn btn-xs btn-success" title="Скачать результаты">
+                            <i class="fa fa-download"></i>
+                        </a>
+                    </span>
                 @endif
             </div>
         </div>
