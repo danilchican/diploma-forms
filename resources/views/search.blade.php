@@ -16,7 +16,7 @@
         @endforeach
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
-                {{ $forms->links() }}
+                {{ $forms->appends(request()->input())->links() }}
             </div>
         </div>
     @else
