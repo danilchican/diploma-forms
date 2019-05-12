@@ -56,7 +56,7 @@
                     @else
                         var options_{{ $index }} = {
                             width: 900,
-                            height: 380,
+                            height: 360,
                             legend: {position: 'none'},
                             chartArea: { left:300, width: 400},
                             hAxis: {
