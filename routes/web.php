@@ -45,6 +45,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth.access:admin'], '
         Route::post('/create', 'Dashboard\FormController@storeForm')->name('store');
 
         Route::post('/update', 'Dashboard\FormController@updateForm')->name('update');
+        Route::post('/delete', 'Dashboard\FormController@deleteForm')->name('delete');
 
         Route::get('/{id}/edit', 'Dashboard\FormController@showEditFormPage')->name('edit');
         Route::get('/{id}/view', 'Dashboard\FormController@showViewResultsFormPage')->name('view');

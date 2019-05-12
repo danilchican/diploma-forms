@@ -6,6 +6,7 @@ use App\Exceptions\CreateFormException;
 use App\Exceptions\UpdateFormException;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StatisticsTrait;
+use App\Http\Requests\Form\DeleteFormRequest;
 use App\Http\Requests\Form\CreateFormRequest;
 use App\Http\Requests\Form\UpdateFormRequest;
 use App\Models\AnswerType;
@@ -106,6 +107,41 @@ class FormController extends Controller
                 'success' => false,
                 'errors'  => [$e->getMessage()],
             ], 403);
+        }
+    }
+
+    /**
+     * Delete Form from Storage.
+     *
+     * @param DeleteFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteForm(DeleteFormRequest $request)
+    {
+        $formId = (int)$request->input('id');
+
+        try {
+            DB::beginTransaction();
+
+            $form = Form::with(['answers.submittedAnswers', 'questions.answers'])->findOrFail($formId);
+
+            $isFormDeleted = $form->delete();
+
+            if (!$isFormDeleted) {
+                throw new \Exception('Невозможно удалить опрос. Обратитесь к администратору.');
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Опрос успешно удалён.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            \Log::error($e->getMessage());
+            \Log::error($e->getTraceAsString());
+
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 

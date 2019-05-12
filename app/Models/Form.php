@@ -247,4 +247,32 @@ class Form extends Model
     {
         return $this->hasMany(SubmittedForm::class);
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($form) {
+            \Log::debug('Deleting form ' . $form->id);
+            \Log::debug('Deleting answers ' . $form->id);
+
+            $form->answers->each(function ($answer) {
+                $answer->submittedAnswers->each(function ($answer) {
+                    $answer->delete();
+                });
+
+                $answer->delete();
+            });
+
+            \Log::debug('Deleting questions ' . $form->id);
+
+            $form->questions->each(function ($question) {
+                $question->answers->each(function ($answer) {
+                    $answer->delete();
+                });
+
+                $question->delete();
+            });
+        });
+    }
 }
