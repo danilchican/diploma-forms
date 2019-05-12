@@ -62,3 +62,31 @@ label {
 .footer-logo {
   margin-top: 15px;
 }
+
+.panel-primary {
+  border-color: #614239;
+}
+
+.panel-primary > .panel-heading {
+  background-color: #755044;
+  border-color: #614239;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  background-color: #755044;
+  border-color: #614239;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover,
+.pagination > li > a,
+.pagination > li > span {
+  color: #614239;
+}
