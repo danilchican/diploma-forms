@@ -49,14 +49,14 @@
                     @if($diagram['diagram'] === 'pie')
                         var options_{{ $index }} = {
                             width: 900,
-                            height: 380,
+                            height: 350,
                             chartArea: { left:20, width: 750},
                         };
                         var chart_{{ $index }} = new google.visualization.PieChart(document.getElementById('{{ $diagram['diagram'] }}-chart-{{ $index }}'));
                     @else
                         var options_{{ $index }} = {
                             width: 900,
-                            height: 360,
+                            height: 350,
                             legend: {position: 'none'},
                             chartArea: { left:300, width: 400},
                             hAxis: {
