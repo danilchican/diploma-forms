@@ -19,6 +19,7 @@ class AnswerVariantExists implements Rule
      */
     public function passes($attribute, $value)
     {
+        \Log::debug('Validating "' . $attribute . '"', ['value' => $value]);
         $questionId = explode('.', $attribute)[1];
 
         if (!is_numeric($questionId)) {
@@ -51,6 +52,9 @@ class AnswerVariantExists implements Rule
 
         if ($answerType->isAnswersRequired()) {
             if ($answerType->getType() !== 'checkbox') {
+                \Log::debug('Answer type is not checkbox and value is = ', ['value' => $value]);
+                $value = $value[0];
+
                 $validator = Validator::make(['answer' => (int)$value],
                     ['answer' => 'required|integer|exists:answer_variants,id']);
 
