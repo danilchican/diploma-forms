@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                                                               $description
  * @property boolean                                                                   $is_finished
  * @property boolean                                                                   $is_published
+ * @property bool                                                                      $can_download_results
  * @property \Illuminate\Support\Carbon|null                                           $created_at
  * @property \Illuminate\Support\Carbon|null                                           $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form newModelQuery()
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form opened()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form finished()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form unpublished()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Form whereCanDownloadResults($value)
  * @mixin \Eloquent
  */
 class Form extends Model
@@ -47,7 +49,7 @@ class Form extends Model
      */
     protected $fillable = [
         'author_id', 'title', 'description',
-        'is_finished', 'is_published',
+        'is_finished', 'is_published', 'can_download_results',
     ];
 
     /**
@@ -56,8 +58,9 @@ class Form extends Model
      * @var array
      */
     protected $casts = [
-        'is_finished'  => 'boolean',
-        'is_published' => 'boolean',
+        'is_finished'          => 'boolean',
+        'is_published'         => 'boolean',
+        'can_download_results' => 'boolean',
     ];
 
     /**
@@ -145,6 +148,26 @@ class Form extends Model
     public function setPublished($value)
     {
         $this->is_published = $value;
+    }
+
+    /**
+     * Check if form has availability to download results.
+     *
+     * @return boolean
+     */
+    public function isAvailableToDownloadResults()
+    {
+        return $this->can_download_results;
+    }
+
+    /**
+     * Set availability flag for the form to download results.
+     *
+     * @param boolean $value
+     */
+    public function setAvailableToDownloadResults($value)
+    {
+        $this->can_download_results = $value;
     }
 
     /**

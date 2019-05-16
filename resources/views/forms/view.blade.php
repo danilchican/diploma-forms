@@ -19,6 +19,7 @@
                 @endif
             @endif
         </div>
+
         @if(!$isFinished)
             <div class="col-md-12">
                 <div class="row">
@@ -53,12 +54,16 @@
                     </form>
                 </div>
             </div>
-        @else
-            <h3 style="text-align: center">Узнать результаты вы можете, скачав их в формате pdf.</h3>
-            <p style="text-align: center">
-                <a href="{{ route('forms.results.download', ['id' => $form->id]) }}"
-                   class="btn btn-sm btn-success">Скачать результаты</a>
-            </p>
+        @endif
+
+        @if($isAvailableToDownloadResults)
+            <div class="col-md-12">
+                <h3 style="text-align: center">Узнать результаты вы можете, скачав их в формате pdf.</h3>
+                <p style="text-align: center">
+                    <a href="{{ route('forms.results.download', ['id' => $form->id]) }}"
+                       class="btn btn-sm btn-success">Скачать результаты</a>
+                </p>
+            </div>
         @endif
     </div>
 @endsection

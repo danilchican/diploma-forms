@@ -2315,6 +2315,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2330,6 +2331,7 @@ __webpack_require__.r(__webpack_exports__);
       description: '',
       published: null,
       finished: null,
+      can_download_results: null,
       questions: []
     };
   },
@@ -2339,7 +2341,7 @@ __webpack_require__.r(__webpack_exports__);
     this.description = this.form.description;
     this.published = this.form.is_published;
     this.finished = this.form.is_finished;
-    console.log(this.published, this.finished);
+    this.can_download_results = this.form.can_download_results;
     this.loadFormQuestions();
   },
   computed: {
@@ -2361,6 +2363,7 @@ __webpack_require__.r(__webpack_exports__);
       this.description = info.description;
       this.published = info.published;
       this.finished = info.finished;
+      this.can_download_results = info.can_download_results;
     },
     addQuestion: function addQuestion(question) {
       this.questions.push(question);
@@ -2458,7 +2461,8 @@ __webpack_require__.r(__webpack_exports__);
         description: this.description,
         questions: this.questions,
         is_published: this.published,
-        is_finished: this.finished
+        is_finished: this.finished,
+        can_download_results: this.can_download_results
       };
       axios.post(this.updateUrl, _payload).then(function (response) {
         var data = response.data;
@@ -2605,12 +2609,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     editTitle: String,
     editDescription: String,
     editPublished: Boolean,
     editFinished: Boolean,
+    editCanDownloadResults: Boolean,
     isEditForm: Boolean
   },
   data: function data() {
@@ -2618,7 +2647,8 @@ __webpack_require__.r(__webpack_exports__);
       title: '',
       description: '',
       published: false,
-      finished: false
+      finished: false,
+      can_download_results: false
     };
   },
   mounted: function mounted() {
@@ -2626,6 +2656,7 @@ __webpack_require__.r(__webpack_exports__);
     this.description = this.editDescription;
     this.published = this.editPublished;
     this.finished = this.editFinished;
+    this.can_download_results = this.editCanDownloadResults;
   },
   watch: {
     title: function title() {
@@ -2640,6 +2671,9 @@ __webpack_require__.r(__webpack_exports__);
     finished: function finished() {
       this.$emit('infoChanged', this.getInfo());
     },
+    can_download_results: function can_download_results() {
+      this.$emit('infoChanged', this.getInfo());
+    },
     editTitle: function editTitle() {
       this.title = this.editTitle;
     },
@@ -2651,6 +2685,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     editFinished: function editFinished() {
       this.finished = this.editFinished;
+    },
+    editCanDownloadResults: function editCanDownloadResults() {
+      this.can_download_results = this.editCanDownloadResults;
     }
   },
   methods: {
@@ -2659,7 +2696,8 @@ __webpack_require__.r(__webpack_exports__);
         title: this.title,
         description: this.description,
         published: this.published,
-        finished: this.finished
+        finished: this.finished,
+        can_download_results: this.can_download_results
       };
     },
     updatePublished: function updatePublished(value) {
@@ -2667,6 +2705,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateFinished: function updateFinished(value) {
       this.finished = Boolean(value);
+    },
+    updateDownloadResultsAvailability: function updateDownloadResultsAvailability(value) {
+      this.can_download_results = Boolean(value);
     }
   }
 });
@@ -69934,6 +69975,7 @@ var render = function() {
           "edit-description": _vm.form.description,
           "edit-published": _vm.form.is_published,
           "edit-finished": _vm.form.is_finished,
+          "edit-can-download-results": _vm.form.can_download_results,
           "is-edit-form": true
         },
         on: { infoChanged: _vm.onMainInfoChanged }
@@ -70413,6 +70455,101 @@ var render = function() {
                     ]
                   )
                 ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.isEditForm
+              ? _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-md-5 col-sm-5 col-xs-12 col-md-offset-2"
+                    },
+                    [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn-group",
+                          attrs: {
+                            id: "can-download-results",
+                            "data-toggle": "buttons"
+                          }
+                        },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "btn btn-default",
+                              class: [
+                                "btn btn-default",
+                                _vm.can_download_results ? " active" : ""
+                              ],
+                              attrs: {
+                                "data-toggle-class": "btn-primary",
+                                "data-toggle-passive-class": "btn-default"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.updateDownloadResultsAvailability(
+                                    true
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("input", {
+                                attrs: {
+                                  type: "radio",
+                                  name: "can_download_results",
+                                  value: "true"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                                    Да\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "btn btn-primary active",
+                              class: [
+                                "btn btn-default",
+                                !_vm.can_download_results ? " active" : ""
+                              ],
+                              attrs: {
+                                id: "can-download-results-default",
+                                "data-toggle-class": "btn-primary",
+                                "data-toggle-passive-class": "btn-default"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.updateDownloadResultsAvailability(
+                                    false
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("input", {
+                                attrs: {
+                                  type: "radio",
+                                  name: "can_download_results",
+                                  value: "false"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                                    Нет\n                                "
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
               : _vm._e()
           ])
         ])
@@ -70464,6 +70601,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _vm._v("Завершен: "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v(" ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Выгрузка результатов: "),
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
       _vm._v(" ")
     ])

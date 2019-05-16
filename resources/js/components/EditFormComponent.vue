@@ -7,6 +7,7 @@
                               :edit-description="form.description"
                               :edit-published="form.is_published"
                               :edit-finished="form.is_finished"
+                              :edit-can-download-results="form.can_download_results"
                               :is-edit-form="true"
                               @infoChanged="onMainInfoChanged"/>
         <div class="row">
@@ -89,6 +90,7 @@
                 description: '',
                 published: null,
                 finished: null,
+                can_download_results: null,
                 questions: [],
             }
         },
@@ -99,7 +101,7 @@
             this.description = this.form.description
             this.published = this.form.is_published
             this.finished = this.form.is_finished
-            console.log(this.published, this.finished)
+            this.can_download_results = this.form.can_download_results
 
             this.loadFormQuestions()
         },
@@ -125,6 +127,7 @@
                 this.description = info.description
                 this.published = info.published
                 this.finished = info.finished
+                this.can_download_results = info.can_download_results
             },
 
             addQuestion(question) {
@@ -226,7 +229,8 @@
                     description: this.description,
                     questions: this.questions,
                     is_published: this.published,
-                    is_finished: this.finished
+                    is_finished: this.finished,
+                    can_download_results: this.can_download_results
                 }
 
                 axios.post(this.updateUrl, _payload).then(function (response) {

@@ -73,6 +73,30 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group" v-if="isEditForm">
+                            <div class="col-md-5 col-sm-5 col-xs-12 col-md-offset-2">
+                                <label>Выгрузка результатов: <span class="required">*</span>&nbsp;</label>
+                                <div id="can-download-results" class="btn-group" data-toggle="buttons">
+                                    <label @click="updateDownloadResultsAvailability(true)" class="btn btn-default"
+                                           :class="['btn btn-default', can_download_results ? ' active' : '']"
+                                           data-toggle-class="btn-primary"
+                                           data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="can_download_results" value="true">
+                                        Да
+                                    </label>
+                                    <label @click="updateDownloadResultsAvailability(false)"
+                                           id="can-download-results-default"
+                                           :class="['btn btn-default', !can_download_results ? ' active' : '']"
+                                           class="btn btn-primary active"
+                                           data-toggle-class="btn-primary"
+                                           data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="can_download_results" value="false">
+                                        Нет
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -87,6 +111,7 @@
             editDescription: String,
             editPublished: Boolean,
             editFinished: Boolean,
+            editCanDownloadResults: Boolean,
             isEditForm: Boolean
         },
 
@@ -95,7 +120,8 @@
                 title: '',
                 description: '',
                 published: false,
-                finished: false
+                finished: false,
+                can_download_results: false
             }
         },
 
@@ -104,6 +130,7 @@
             this.description = this.editDescription;
             this.published = this.editPublished;
             this.finished = this.editFinished;
+            this.can_download_results = this.editCanDownloadResults;
         },
 
         watch: {
@@ -119,6 +146,9 @@
             finished() {
                 this.$emit('infoChanged', this.getInfo());
             },
+            can_download_results() {
+                this.$emit('infoChanged', this.getInfo());
+            },
             editTitle() {
                 this.title = this.editTitle
             },
@@ -130,6 +160,9 @@
             },
             editFinished() {
                 this.finished = this.editFinished
+            },
+            editCanDownloadResults() {
+                this.can_download_results = this.editCanDownloadResults
             }
         },
 
@@ -139,7 +172,8 @@
                     title: this.title,
                     description: this.description,
                     published: this.published,
-                    finished: this.finished
+                    finished: this.finished,
+                    can_download_results: this.can_download_results
                 }
             },
 
@@ -149,6 +183,10 @@
 
             updateFinished(value) {
                 this.finished = Boolean(value);
+            },
+
+            updateDownloadResultsAvailability(value) {
+                this.can_download_results = Boolean(value);
             },
         }
     }

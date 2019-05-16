@@ -29,9 +29,11 @@ class FormController extends Controller
         $answersCount = $form->answers_count;
         $isAlreadySubmitted = SubmittedForm::submittedBy(request()->ip())->forForm($id)->first() !== null;
         $isFinished = $form->isFinished();
+        $isAvailableToDownloadResults = $form->isAvailableToDownloadResults();
 
         return view('forms.view')->with(compact([
-            'form', 'questions', 'answersCount', 'isAlreadySubmitted', 'isFinished',
+            'form', 'questions', 'answersCount',
+            'isAlreadySubmitted', 'isFinished', 'isAvailableToDownloadResults',
         ]));
     }
 
